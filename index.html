@@ -1,0 +1,1922 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Андрей Клавдиев — Product Producer | Creative Producer</title>
+  <style>
+    :root {
+      --bg: #111315;
+      --panel: #1a1c1e;
+      --line: #343536;
+      --ink: #f1eee7;
+      --muted: #a1a19b;
+      --soft: #c8bfae;
+      --dim: #696965;
+      --blue: #2da9e6;
+      --slide-w: 16;
+      --slide-h: 9;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: #08090a; color: var(--ink); font-family: Arial, Helvetica, sans-serif; }
+    body { overflow: hidden; }
+    button, a { font: inherit; }
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100svh;
+      background:
+        radial-gradient(circle at 75% 20%, rgba(200, 191, 174, .05), transparent 24%),
+        linear-gradient(180deg, #121416, #0e1012);
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .deck::before {
+      content: "";
+      position: absolute;
+      inset: -42% -12%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(155deg,
+          transparent 0%,
+          rgba(200, 191, 174, .09) 32%,
+          rgba(136, 185, 176, .06) 48%,
+          transparent 68%);
+      transform: translateY(-28%);
+      animation: ambientWave 18s ease-in-out infinite;
+    }
+
+    .deck::after {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 24%, rgba(200, 191, 174, .08), transparent 24%),
+        radial-gradient(circle at 82% 72%, rgba(136, 185, 176, .07), transparent 28%);
+      filter: blur(20px);
+      opacity: .9;
+      transform: translate3d(0, 0, 0);
+      animation: livingWallpaper 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes ambientWave {
+      0%, 100% { transform: translateY(-30%); opacity: .55; }
+      50% { transform: translateY(24%); opacity: .9; }
+    }
+
+    @keyframes livingWallpaper {
+      0% { transform: translate3d(-2%, -2%, 0) scale(1); }
+      50% { transform: translate3d(2%, 3%, 0) scale(1.04); }
+      100% { transform: translate3d(3%, -1%, 0) scale(1.02); }
+    }
+
+    .slides {
+      height: 100%;
+      display: flex;
+      position: relative;
+      z-index: 1;
+      transform: translateX(calc(var(--current-slide, 0) * -100vw));
+      transition: transform 700ms cubic-bezier(.22, 1, .36, 1);
+      will-change: transform;
+    }
+
+    .slide {
+      min-width: 100vw;
+      height: 100svh;
+      position: relative;
+      padding: clamp(18px, 3.2vw, 54px) clamp(28px, 5vw, 96px);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .slide[data-title="боль"],
+    .slide[data-title="старт"] {
+      background:
+        linear-gradient(125deg, rgba(200, 191, 174, .12), transparent 28%),
+        linear-gradient(235deg, rgba(136, 185, 176, .10), transparent 34%),
+        linear-gradient(180deg, #121416 0%, #0e1012 56%, #0a0b0c 100%);
+      background-size: 180% 180%;
+      animation: coverGradient 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes coverGradient {
+      0% { background-position: 0% 15%, 100% 20%, 50% 50%; }
+      100% { background-position: 100% 45%, 12% 80%, 50% 50%; }
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: -12%;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(200,191,174,.09), transparent 25%),
+        radial-gradient(circle at 82% 72%, rgba(136,185,176,.07), transparent 31%),
+        linear-gradient(115deg, transparent 12%, rgba(255,255,255,.045) 42%, transparent 68%),
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.014) 1px, transparent 1px);
+      background-size: 145% 145%, 150% 150%, 180% 180%, 64px 64px, 64px 64px;
+      background-position: 0% 0%, 100% 100%, 0% 40%, 0 0, 0 0;
+      opacity: .72;
+      pointer-events: none;
+      z-index: -1;
+      animation: slideAmbient 16s ease-in-out infinite alternate;
+    }
+
+    @keyframes slideAmbient {
+      0% { background-position: 0% 8%, 100% 92%, 0% 30%, 0 0, 0 0; }
+      50% { background-position: 16% 22%, 76% 70%, 70% 56%, 10px 16px, 16px 10px; }
+      100% { background-position: 28% 12%, 84% 84%, 100% 42%, 18px 24px, 24px 18px; }
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      left: 5vw;
+      right: 5vw;
+      bottom: 6vh;
+      height: 1px;
+      background: var(--line);
+      opacity: .75;
+    }
+
+    .tabs {
+      position: fixed;
+      z-index: 40;
+      top: clamp(16px, 2.4vh, 34px);
+      left: 50%;
+      transform: translateX(-50%);
+      display: grid;
+      grid-template-columns: repeat(9, minmax(78px, 1fr));
+      width: min(83vw, 1440px);
+      gap: 6px;
+    }
+
+    .tab {
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(17,19,21,.78);
+      color: var(--muted);
+      height: 30px;
+      cursor: pointer;
+      transition: background .25s ease, color .25s ease, border-color .25s ease;
+      text-transform: lowercase;
+      font-size: 11px;
+      letter-spacing: 0;
+    }
+
+    .tab.active {
+      background: var(--soft);
+      color: #111315;
+      border-color: var(--soft);
+      font-weight: 700;
+      animation: tabGlow 4.8s ease-in-out infinite;
+    }
+
+    @keyframes tabGlow {
+      0%, 100% { box-shadow: 0 0 0 rgba(200,191,174,0); }
+      50% { box-shadow: 0 0 18px rgba(200,191,174,.16); }
+    }
+
+    .eyebrow {
+      margin-top: clamp(42px, 7.4vh, 74px);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: clamp(13px, 1.1vw, 18px);
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: clamp(26px, 4.8vh, 56px) 0 0;
+      font-size: clamp(40px, 4.8vw, 72px);
+      line-height: 1.12;
+      letter-spacing: 0;
+      max-width: 9.5em;
+    }
+
+    .cover-title {
+      max-width: none;
+      font-size: clamp(38px, 3.85vw, 64px);
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .mobile-break {
+      display: none;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(32px, 3.4vw, 56px);
+      line-height: 1.14;
+      letter-spacing: 0;
+      max-width: 12em;
+    }
+
+    .question-title {
+      font-size: clamp(28px, 1.82vw, 35px);
+      line-height: 1.16;
+      max-width: none;
+      white-space: nowrap;
+    }
+
+    .section-title {
+      margin-top: clamp(72px, 9.2vh, 102px);
+      font-size: clamp(34px, 2.25vw, 42px);
+      line-height: 1.16;
+      max-width: none;
+      white-space: nowrap;
+    }
+
+    h3 { margin: 0; font-size: clamp(22px, 2vw, 34px); line-height: 1.16; }
+    p { margin: 0; color: var(--muted); font-size: clamp(16px, 1.45vw, 25px); line-height: 1.32; }
+
+    .footer {
+      position: absolute;
+      left: 5vw;
+      bottom: 3.6vh;
+      color: #8c8c87;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 220ms ease;
+    }
+
+    .num {
+      position: absolute;
+      right: 5vw;
+      bottom: 3.6vh;
+      color: var(--soft);
+      font-weight: 700;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 220ms ease;
+    }
+
+    .slide.active .footer,
+    .slide.active .num {
+      opacity: 1;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 700ms ease, transform 700ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .slide.active .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .instant-load .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .d1 { transition-delay: 80ms; }
+    .d2 { transition-delay: 170ms; }
+    .d3 { transition-delay: 260ms; }
+    .d4 { transition-delay: 350ms; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(360px, .88fr);
+      gap: min(5.7vw, 82px);
+      align-items: center;
+      height: calc(100svh - 124px);
+      padding-top: 18px;
+    }
+
+    .case-slide .two-col {
+      align-items: start;
+      height: auto;
+      padding-top: 0;
+      margin-top: clamp(72px, 9.2vh, 102px);
+    }
+
+    .case-slide .lead {
+      margin-top: clamp(34px, 5.2vh, 56px);
+    }
+
+    .lead {
+      margin-top: clamp(30px, 5.6vh, 70px);
+      max-width: 760px;
+    }
+
+    .diag {
+      position: absolute;
+      right: 9vw;
+      top: 19vh;
+      padding-left: 26px;
+      border-left: 3px solid var(--soft);
+    }
+
+    .diag small { color: var(--muted); text-transform: uppercase; font-weight: 700; }
+    .diag strong { display: block; margin-top: 12px; font-size: clamp(34px, 3.1vw, 52px); }
+    .diag span { display: block; color: var(--soft); margin-top: 12px; font-size: clamp(16px, 1.4vw, 22px); line-height: 1.25; }
+
+    .questions {
+      position: absolute;
+      left: 5vw;
+      right: 5vw;
+      bottom: clamp(110px, 15vh, 154px);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 5vw;
+    }
+
+    .q {
+      border-top: 1px solid var(--soft);
+      padding-top: clamp(20px, 1.6vw, 28px);
+      padding-right: clamp(10px, 1vw, 18px);
+      padding-bottom: clamp(36px, 2.6vw, 48px);
+      padding-left: clamp(12px, 1.2vw, 22px);
+      min-height: clamp(205px, 17vh, 238px);
+      transform-origin: left top;
+      transition: color .3s ease, border-color .3s ease, transform .3s ease;
+      overflow: hidden;
+    }
+
+    .q b { color: var(--soft); font-size: 14px; }
+    .q h3 { margin-top: 24px; font-size: clamp(24px, 2vw, 34px); }
+    .q p {
+      margin-top: clamp(18px, 1.4vw, 24px);
+      font-size: clamp(15px, 1.25vw, 22px);
+      line-height: 1.28;
+      max-width: 94%;
+    }
+
+    .pain-title {
+      max-width: 1120px;
+      font-size: clamp(42px, 4.15vw, 68px);
+      line-height: 1.04;
+    }
+
+    .pain-subtitle {
+      margin-top: clamp(20px, 3.2vh, 34px);
+      max-width: 980px;
+      color: var(--muted);
+      font-size: clamp(17px, 1.34vw, 22px);
+      line-height: 1.28;
+    }
+
+    .pain-subtitle:empty {
+      display: none;
+    }
+
+    .pain-grid {
+      margin-top: clamp(34px, 5.2vh, 58px);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(14px, 2vw, 28px);
+      width: min(86vw, 1460px);
+    }
+
+    .pain-card {
+      border-top: 1px solid var(--soft);
+      padding-top: 15px;
+      padding-right: clamp(10px, 1vw, 18px);
+      padding-left: clamp(12px, 1.2vw, 22px);
+      min-height: 68px;
+      color: var(--ink);
+      font-size: clamp(17px, 1.34vw, 23px);
+      line-height: 1.15;
+      font-weight: 700;
+      white-space: nowrap;
+      transform-origin: left top;
+      transition: color .3s ease, border-color .3s ease, transform .3s ease;
+      overflow: hidden;
+    }
+
+    .slide.active .pain-card,
+    .slide.active .q {
+      animation: linePulse 7.2s ease-in-out infinite;
+    }
+
+    .slide.active .pain-card:nth-child(1),
+    .slide.active .q:nth-child(1) { animation-delay: 0s; }
+    .slide.active .pain-card:nth-child(2),
+    .slide.active .q:nth-child(2) { animation-delay: .9s; }
+    .slide.active .pain-card:nth-child(3),
+    .slide.active .q:nth-child(3) { animation-delay: 1.8s; }
+    .slide.active .pain-card:nth-child(4),
+    .slide.active .q:nth-child(4) { animation-delay: 2.7s; }
+
+    @keyframes linePulse {
+      0%, 8%, 100% {
+        border-color: rgba(200,191,174,.58);
+        color: var(--ink);
+        transform: translateY(0) scale(1);
+        box-shadow: inset 0 1px 0 rgba(200,191,174,0);
+      }
+      14%, 22% {
+        border-color: rgba(241,238,231,.98);
+        color: #fffaf0;
+        transform: translateY(-3px) scale(1.025);
+        box-shadow: inset 0 1px 0 rgba(241,238,231,.9), 0 12px 28px rgba(200,191,174,.08);
+      }
+      32% {
+        border-color: rgba(200,191,174,.66);
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .pain-final {
+      margin-top: clamp(24px, 3.8vh, 42px);
+      width: min(84vw, 1320px);
+      border: 1px solid var(--line);
+      background: rgba(26,28,30,.72);
+      color: var(--soft);
+      padding: 20px 26px;
+      font-weight: 700;
+      font-size: clamp(15px, 1.14vw, 20px);
+      line-height: 1.32;
+    }
+
+    .pain-final::first-line {
+      color: var(--ink);
+      font-size: 1.28em;
+    }
+
+    .portrait {
+      width: min(29vw, 390px);
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,.1);
+      filter: grayscale(1) contrast(1.05);
+    }
+
+    .role {
+      color: var(--soft);
+      font-weight: 700;
+      margin-top: clamp(30px, 5vh, 44px);
+      font-size: clamp(20px, 1.9vw, 30px);
+    }
+
+    .formats {
+      margin-top: clamp(30px, 4.8vh, 40px);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: clamp(26px, 2.4vw, 38px);
+    }
+
+    .expert {
+      margin-top: clamp(28px, 4.5vh, 38px);
+      max-width: 850px;
+    }
+
+    .expert strong { color: var(--soft); }
+
+    .media-stack {
+      display: grid;
+      gap: clamp(12px, 1.8vh, 22px);
+      align-content: center;
+      justify-self: end;
+      width: min(36vw, 640px);
+    }
+
+    .media-card {
+      position: relative;
+      display: block;
+      border: 1px solid rgba(255,255,255,.12);
+      background: var(--panel);
+      overflow: hidden;
+      cursor: pointer;
+      min-height: 0;
+      color: inherit;
+      text-decoration: none;
+      transition: transform .25s ease, border-color .25s ease, filter .25s ease;
+    }
+
+    .media-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(200,191,174,.65);
+      filter: brightness(1.06);
+    }
+
+    .media-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 8.55;
+      object-fit: cover;
+    }
+
+    .media-card.tall img { aspect-ratio: 16 / 10; }
+
+    .media-title {
+      position: absolute;
+      left: 18px;
+      bottom: 16px;
+      z-index: 2;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0,0,0,.75);
+    }
+
+    .play {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(200,191,174,.88);
+      box-shadow: 0 14px 36px rgba(0,0,0,.38);
+      z-index: 3;
+    }
+
+    .play::before {
+      content: "";
+      position: absolute;
+      left: 25px;
+      top: 18px;
+      border-left: 18px solid #111315;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+    }
+
+    .case-note {
+      padding: clamp(14px, 1.8vh, 20px) 22px;
+      background: var(--panel);
+    }
+
+    .case-slide .media-stack {
+      align-content: start;
+      width: min(34vw, 600px);
+      gap: clamp(10px, 1.5vh, 16px);
+    }
+
+    .case-slide .media-card img {
+      aspect-ratio: 16 / 7.65;
+    }
+
+    .case-slide .media-card.tall img {
+      aspect-ratio: 16 / 8.15;
+    }
+
+    .case-note h3 { font-size: clamp(19px, 1.5vw, 26px); }
+    .case-note p { margin-top: 14px; font-size: clamp(13px, 1vw, 16px); color: var(--ink); }
+
+    .system {
+      margin-top: clamp(58px, 10vh, 112px);
+      width: min(56vw, 960px);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 28px 34px 30px;
+    }
+
+    .system h3 {
+      color: var(--soft);
+      font-size: clamp(22px, 1.8vw, 30px);
+      margin-bottom: 18px;
+    }
+
+    .system p {
+      color: var(--ink);
+      white-space: nowrap;
+      font-size: clamp(15px, 1.23vw, 22px);
+    }
+
+    .case-system {
+      margin-top: clamp(26px, 4.4vh, 42px);
+      width: min(44vw, 720px);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 18px 22px 20px;
+    }
+
+    .case-system h3 {
+      margin: 0;
+      color: var(--soft);
+      font-size: clamp(18px, 1.35vw, 24px);
+      line-height: 1.12;
+    }
+
+    .case-system p {
+      margin: 14px 0 0;
+      color: var(--ink);
+      font-size: clamp(12px, 1vw, 16px);
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    .benefit {
+      margin-top: clamp(18px, 2.8vh, 28px);
+      max-width: 720px;
+      color: var(--soft);
+      font-size: clamp(14px, 1.05vw, 18px);
+      line-height: 1.32;
+      font-weight: 700;
+    }
+
+    .format-grid {
+      margin-top: clamp(34px, 5.2vh, 60px);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 34px 72px;
+      width: min(76vw, 1360px);
+    }
+
+    .format-card {
+      min-height: 118px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, color-mix(in srgb, var(--accent, var(--soft)) 12%, transparent), transparent 42%),
+        var(--panel);
+      padding: 22px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .format-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: var(--accent, var(--soft));
+      opacity: 1;
+    }
+
+    .format-card:nth-child(1) { --accent: #c8bfae; }
+    .format-card:nth-child(2) { --accent: #88b9b0; }
+    .format-card:nth-child(3) { --accent: #9fa8c7; }
+    .format-card:nth-child(4) { --accent: #c0a87f; }
+
+    .format-card b { color: var(--accent, var(--soft)); font-size: 14px; font-weight: 800; }
+    .format-card h3 { margin-top: 24px; font-size: clamp(22px, 1.8vw, 30px); color: var(--ink); }
+    .format-card p { margin-top: 16px; font-size: clamp(13px, 1.05vw, 18px); color: var(--muted); }
+
+    .chain {
+      margin-top: clamp(30px, 4.8vh, 54px);
+      color: var(--soft);
+      font-size: clamp(20px, 1.75vw, 30px);
+      font-weight: 700;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, .55fr);
+      gap: min(6vw, 88px);
+      align-items: start;
+      height: auto;
+      padding-top: clamp(54px, 7.5vh, 78px);
+    }
+
+    .slide[data-title="автор"] .two-col {
+      transform: translateY(clamp(-58px, -5vh, -34px));
+    }
+
+    .contact-layout > div:first-child > h2 {
+      font-size: clamp(40px, 3.45vw, 60px);
+      max-width: none;
+      white-space: nowrap;
+    }
+
+    .contact-name {
+      margin-top: clamp(42px, 6.2vh, 68px);
+    }
+
+    .contact-name h2 {
+      font-size: clamp(34px, 2.65vw, 48px);
+    }
+
+    .philosophy {
+      margin-top: clamp(52px, 7vh, 76px);
+    }
+
+    .philosophy h2 {
+      color: var(--soft);
+      font-size: clamp(28px, 2.1vw, 38px);
+    }
+
+    .philosophy p { margin-top: 26px; }
+
+    .contact-stack {
+      display: grid;
+      justify-items: stretch;
+      gap: 12px;
+      width: min(25vw, 360px);
+      transform: none;
+    }
+
+    .contact-stack .portrait {
+      width: 100%;
+      max-width: 360px;
+      justify-self: center;
+    }
+
+    .contact-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 14px 22px;
+      min-height: 78px;
+    }
+
+    .contact-card b { color: var(--soft); font-size: 14px; }
+    .contact-card h3 { margin-top: 10px; font-size: clamp(19px, 1.45vw, 25px); }
+    .contact-card p { margin-top: 9px; font-size: clamp(12px, .9vw, 15px); }
+
+    .contact-line {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .slide[data-title="подход"] .media-stack {
+      width: min(33vw, 590px);
+      gap: 16px;
+    }
+
+    .slide[data-title="подход"] .media-card img {
+      aspect-ratio: 16 / 8.15;
+    }
+
+    .slide[data-title="подход"] .question-title {
+      white-space: normal;
+      max-width: 14em;
+    }
+
+    @media (max-height: 980px) and (min-width: 981px) {
+      .slide { padding-top: 30px; padding-bottom: 30px; }
+      .tabs { top: 16px; }
+      .tab { height: 28px; font-size: 10px; }
+      .eyebrow { margin-top: 54px; font-size: 15px; }
+      h1 { font-size: clamp(44px, 4.25vw, 66px); margin-top: 34px; }
+      h2 { font-size: clamp(34px, 3.05vw, 52px); }
+      p { font-size: clamp(15px, 1.25vw, 22px); }
+      .two-col, .contact-layout { height: calc(100svh - 104px); }
+      .lead { margin-top: 42px; }
+      .media-stack { width: min(34vw, 610px); gap: 12px; }
+      .media-card img { aspect-ratio: 16 / 7.8; }
+      .media-card.tall img { aspect-ratio: 16 / 8.2; }
+      .case-slide .two-col { margin-top: 70px; }
+      .case-slide .media-stack { width: min(33vw, 580px); gap: 10px; }
+      .case-slide .media-card img { aspect-ratio: 16 / 7.35; }
+      .question-title { font-size: clamp(28px, 1.82vw, 35px); }
+      .case-note { display: none; }
+      .system { margin-top: 56px; padding: 22px 28px; }
+      .format-grid { gap: 22px 54px; }
+      .format-card { min-height: 108px; padding: 18px 24px; }
+      .format-card h3 { margin-top: 18px; }
+      .format-card p { margin-top: 12px; }
+      .slide[data-title="автор"] .two-col { transform: translateY(-38px); }
+      .contact-layout { padding-top: 54px; grid-template-columns: minmax(0, 1fr) minmax(310px, .48fr); }
+      .contact-stack { width: min(22vw, 330px); gap: 10px; transform: none; }
+      .contact-stack .portrait { max-width: 330px; }
+      .contact-card { padding: 12px 20px; min-height: 72px; }
+      .contact-card h3 { margin-top: 8px; }
+      .contact-line { margin-top: 8px; grid-template-columns: 32px minmax(0, 1fr); }
+      .tg { width: 32px; height: 32px; }
+      .questions { bottom: 112px; gap: 4.2vw; }
+    }
+
+    .tg {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .contact-line a {
+      color: var(--soft);
+      text-decoration: none;
+      font-weight: 700;
+      display: block;
+      line-height: 1.35;
+    }
+
+    .contact-line span {
+      color: var(--muted);
+      display: block;
+      margin-top: 5px;
+    }
+
+    .progress {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 100%;
+      background: rgba(255,255,255,.08);
+      z-index: 50;
+    }
+
+    .progress i {
+      display: block;
+      height: 100%;
+      width: 11.111111%;
+      background: var(--soft);
+      transition: transform 700ms cubic-bezier(.22, 1, .36, 1);
+      transform-origin: left;
+    }
+
+    .arrow {
+      position: fixed;
+      z-index: 45;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(17,19,21,.55);
+      color: var(--soft);
+      cursor: pointer;
+      font-size: 26px;
+    }
+
+    .arrow.prev { left: 18px; }
+    .arrow.next { right: 18px; }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0,0,0,.86);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 4vw;
+    }
+
+    .modal.open { display: flex; }
+
+    .modal-frame {
+      width: min(1100px, 88vw);
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 30px 90px rgba(0,0,0,.55);
+    }
+
+    .modal-frame.video-frame {
+      width: min(1100px, 92vw);
+      height: min(82vh, 720px);
+      aspect-ratio: auto;
+    }
+
+    .modal-frame iframe,
+    .modal-frame img,
+    .modal-frame video {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .close {
+      position: fixed;
+      right: 28px;
+      top: 24px;
+      z-index: 110;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(17,19,21,.75);
+      color: #fff;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    @media (max-width: 980px) {
+      body { overflow: hidden; }
+      .deck { height: 100svh; overflow: hidden; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
+    .rotate-hint { display: none; }
+
+    @media (max-width: 980px) and (orientation: portrait) {
+      body { overflow: hidden; }
+      .deck { height: 100svh; overflow: hidden; filter: brightness(.56); }
+      .rotate-hint {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: grid;
+        place-items: center;
+        padding: 28px;
+        background:
+          linear-gradient(180deg, rgba(8,9,10,.64), rgba(8,9,10,.9)),
+          radial-gradient(circle at 50% 18%, rgba(200,191,174,.14), transparent 34%);
+        color: var(--ink);
+      }
+      .rotate-card {
+        width: min(300px, 82vw);
+        border: 1px solid rgba(255,255,255,.14);
+        background: rgba(26,28,30,.86);
+        padding: 22px 22px 24px;
+        text-align: center;
+      }
+      .rotate-icon {
+        position: relative;
+        width: 76px;
+        height: 54px;
+        margin: 0 auto 18px;
+        border: 2px solid rgba(200,191,174,.82);
+        border-radius: 10px;
+        animation: phoneTilt 1.8s ease-in-out infinite;
+      }
+      .rotate-icon::before,
+      .rotate-icon::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 14px;
+        height: 14px;
+        border-top: 2px solid var(--soft);
+        border-right: 2px solid var(--soft);
+      }
+      .rotate-icon::before {
+        left: -34px;
+        transform: translateY(-50%) rotate(-135deg);
+        animation: nudgeLeft 1.8s ease-in-out infinite;
+      }
+      .rotate-icon::after {
+        right: -34px;
+        transform: translateY(-50%) rotate(45deg);
+        animation: nudgeRight 1.8s ease-in-out infinite;
+      }
+      @keyframes phoneTilt {
+        0%, 100% { transform: rotate(0deg); }
+        45% { transform: rotate(90deg); }
+        70% { transform: rotate(90deg); }
+      }
+      @keyframes nudgeLeft {
+        0%, 100% { opacity: .42; left: -26px; }
+        50% { opacity: 1; left: -36px; }
+      }
+      @keyframes nudgeRight {
+        0%, 100% { opacity: .42; right: -26px; }
+        50% { opacity: 1; right: -36px; }
+      }
+      .rotate-card b {
+        display: block;
+        color: var(--soft);
+        font-size: 12px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+      .rotate-card h2 {
+        font-size: 24px;
+        line-height: 1.08;
+        max-width: none;
+      }
+      .rotate-card p {
+        margin-top: 12px;
+        font-size: 14px;
+        line-height: 1.36;
+      }
+    }
+
+    @media (max-width: 980px) and (orientation: landscape) {
+      body { overflow: hidden; }
+      .deck { height: 100svh; overflow: hidden; filter: none; }
+      .slides { display: flex; height: 100%; }
+      .slide {
+        min-width: 100vw;
+        height: 100svh;
+        padding: 20px 58px 24px;
+        border-bottom: 0;
+        overflow: hidden;
+        background: #101214;
+      }
+      .slide::after {
+        display: block;
+        left: 5vw;
+        right: 5vw;
+        bottom: 4.2vh;
+      }
+      .tabs {
+        display: grid;
+        position: fixed;
+        top: 7px;
+        width: min(76vw, 820px);
+        grid-template-columns: repeat(9, minmax(48px, 1fr));
+        gap: 4px;
+      }
+      .tab { height: 24px; font-size: 8px; padding: 0 4px; }
+      .arrow { display: block; width: 32px; height: 32px; font-size: 22px; }
+      .arrow.prev { left: 8px; }
+      .arrow.next { right: 8px; }
+      .progress { display: block; }
+      .eyebrow { margin-top: 30px; font-size: 10px; }
+      h1 {
+        margin-top: 24px;
+        font-size: clamp(32px, 4.6vw, 40px);
+        line-height: 1.08;
+      }
+      .cover-title { font-size: clamp(30px, 4.2vw, 36px); }
+      .diag {
+        position: absolute;
+        right: 8vw;
+        top: 22vh;
+        margin-top: 0;
+        padding-left: 16px;
+      }
+      .diag small { font-size: 10px; }
+      .diag strong { margin-top: 8px; font-size: clamp(24px, 4vw, 34px); }
+      .diag span { margin-top: 8px; font-size: 12px; }
+      .questions {
+        position: absolute;
+        left: 6.8vw;
+        right: 6.8vw;
+        bottom: 36px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 3.3vw;
+        margin-top: 0;
+      }
+      .q {
+        padding-top: 12px;
+        padding-right: 7px;
+        padding-bottom: 14px;
+        padding-left: 9px;
+        min-height: 88px;
+      }
+      .q b { font-size: 10px; }
+      .q h3 { margin-top: 14px; font-size: 17px; }
+      .q p { margin-top: 10px; font-size: 11px; line-height: 1.22; }
+      .pain-title {
+        max-width: 76vw;
+        font-size: clamp(22px, 3.2vw, 30px);
+        line-height: 1.08;
+      }
+      .pain-subtitle {
+        margin-top: 18px;
+        max-width: 66vw;
+        font-size: 12px;
+        line-height: 1.22;
+      }
+      .pain-grid {
+        margin-top: 22px;
+        width: min(86vw, 760px);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .pain-card {
+        min-height: 56px;
+        padding-top: 10px;
+        padding-right: 7px;
+        padding-left: 9px;
+        font-size: 12px;
+      }
+      .pain-final {
+        margin-top: 18px;
+        width: min(86vw, 760px);
+        padding: 10px 14px;
+        font-size: 10px;
+      }
+      .two-col,
+      .contact-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(250px, .68fr);
+        height: calc(100svh - 42px);
+        gap: 30px;
+        align-items: center;
+      }
+      .case-slide .two-col {
+        margin-top: 38px;
+        height: auto;
+        align-items: start;
+      }
+      .question-title,
+      .section-title { white-space: normal; }
+      .nowrap { white-space: nowrap; }
+      .question-title {
+        font-size: clamp(19px, 2.55vw, 24px);
+        line-height: 1.12;
+        max-width: 100%;
+      }
+      .lead {
+        margin-top: 22px;
+        max-width: 450px;
+        font-size: 13px;
+        line-height: 1.24;
+      }
+      .case-slide .lead { margin-top: 22px; }
+      .benefit {
+        margin-top: 12px;
+        max-width: 450px;
+        font-size: 11px;
+      }
+      .media-stack {
+        margin-top: 0;
+        width: min(30vw, 260px);
+        gap: 7px;
+        justify-self: end;
+      }
+      .case-slide .media-stack,
+      .slide[data-title="подход"] .media-stack {
+        width: min(30vw, 260px);
+        gap: 7px;
+      }
+      .case-slide .media-card img,
+      .slide[data-title="подход"] .media-card img {
+        aspect-ratio: 16 / 7.55;
+      }
+      .case-slide .media-card.tall img,
+      .slide[data-title="подход"] .media-card.tall img {
+        aspect-ratio: 16 / 8.45;
+      }
+      .media-title { left: 10px; bottom: 8px; font-size: 11px; }
+      .play { width: 48px; height: 48px; }
+      .play::before {
+        left: 19px;
+        top: 14px;
+        border-left-width: 14px;
+        border-top-width: 9px;
+        border-bottom-width: 9px;
+      }
+      .case-note { display: none; }
+      .system { margin-top: 28px; width: 100%; padding: 16px 18px; }
+      .system h3 { font-size: 18px; }
+      .system p { margin-top: 14px; white-space: normal; font-size: 12px; }
+      .section-title { margin-top: 42px; font-size: clamp(22px, 3.7vw, 30px); }
+      .chain { margin-top: 14px; font-size: clamp(15px, 2.5vw, 20px); }
+      .format-grid {
+        margin-top: 18px;
+        width: min(78vw, 720px);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .format-card { min-height: 96px; padding: 10px 12px 10px 16px; }
+      .format-card b { font-size: 10px; }
+      .format-card h3 { margin-top: 9px; font-size: 14px; }
+      .format-card p { margin-top: 7px; font-size: 10px; line-height: 1.2; }
+      .slide[data-title="автор"] .two-col { transform: none; }
+      .role { margin-top: 18px; font-size: 17px; }
+      .formats { margin-top: 22px; font-size: 20px; }
+      .expert { margin-top: 16px; max-width: 430px; font-size: 10.8px; line-height: 1.24; }
+      .slide[data-title="автор"] .portrait { width: min(25vw, 190px); }
+      .portrait { width: min(27vw, 210px); }
+      .contact-layout {
+        padding-top: 54px;
+        grid-template-columns: minmax(0, 1fr) minmax(190px, .38fr);
+        gap: 34px;
+        align-items: start;
+      }
+      .contact-layout > div:first-child > h2 {
+        white-space: nowrap;
+        font-size: clamp(24px, 4.4vw, 34px);
+      }
+      .contact-name { margin-top: 22px; }
+      .contact-name h2 { font-size: clamp(22px, 3.7vw, 30px); }
+      .contact-name p { margin-top: 12px !important; font-size: 12px; }
+      .philosophy { margin-top: 24px; }
+      .philosophy h2 { font-size: clamp(18px, 3vw, 24px); }
+      .philosophy p { margin-top: 10px; font-size: 11px; }
+      .contact-stack { width: min(18vw, 150px); gap: 7px; }
+      .contact-stack .portrait { max-width: 150px; }
+      .contact-card { min-height: 42px; padding: 6px 10px; }
+      .contact-stack .contact-card:first-of-type { display: none; }
+      .contact-card b { font-size: 10px; }
+      .contact-card h3 { margin-top: 4px; font-size: 12px; }
+      .contact-card p { margin-top: 4px; font-size: 8px; }
+      .contact-line {
+        grid-template-columns: 20px minmax(0, 1fr);
+        gap: 7px;
+        margin-top: 5px;
+      }
+      .tg { width: 20px; height: 20px; }
+      .contact-line a,
+      .contact-line span { font-size: 8px; }
+      .footer {
+        display: none;
+      }
+      .num {
+        display: none;
+      }
+    }
+
+    @media (max-width: 980px) and (orientation: landscape) and (max-height: 430px) {
+      .slide {
+        padding: 14px 72px 76px;
+      }
+      .slide::after {
+        display: none;
+      }
+      .tabs {
+        top: 7px;
+        width: min(72vw, 760px);
+        grid-template-columns: repeat(9, minmax(46px, 1fr));
+      }
+      .tab {
+        height: 22px;
+        font-size: 7px;
+      }
+      .arrow {
+        top: 48%;
+        width: 30px;
+        height: 30px;
+      }
+      .eyebrow {
+        margin-top: 34px;
+        font-size: 9px;
+      }
+      h1 {
+        margin-top: 20px;
+        font-size: clamp(27px, 3.7vw, 32px);
+      }
+      .cover-title {
+        max-width: 11.2em;
+        font-size: clamp(24px, 3.15vw, 28px);
+      }
+      .diag {
+        right: 8.5vw;
+        top: 54px;
+        padding-left: 12px;
+      }
+      .diag small {
+        font-size: 8px;
+      }
+      .diag strong {
+        margin-top: 5px;
+        font-size: clamp(17px, 2.4vw, 22px);
+      }
+      .diag span {
+        margin-top: 5px;
+        font-size: 8px;
+      }
+      .questions {
+        left: 72px;
+        right: 7vw;
+        bottom: 88px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 2.4vw;
+      }
+      .q {
+        border-top: 0;
+        padding-top: 0;
+        padding-right: 5px;
+        padding-bottom: 10px;
+        padding-left: 7px;
+        min-height: 66px;
+      }
+      .q b {
+        display: none;
+        font-size: 8px;
+      }
+      .q h3 {
+        margin-top: 5px;
+        font-size: 11px;
+      }
+      .q p {
+        margin-top: 5px;
+        font-size: 8px;
+        line-height: 1.12;
+      }
+      .pain-title {
+        margin-top: 15px;
+        max-width: 70vw;
+        font-size: clamp(18px, 2.8vw, 22px);
+        line-height: 1.06;
+      }
+      .pain-subtitle {
+        margin-top: 11px;
+        max-width: 68vw;
+        font-size: 8.8px;
+        line-height: 1.18;
+      }
+      .pain-grid {
+        margin-top: 15px;
+        width: min(84vw, 700px);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 7px;
+      }
+      .pain-card {
+        min-height: 36px;
+        padding-top: 7px;
+        padding-right: 5px;
+        padding-left: 7px;
+        font-size: 9.2px;
+        line-height: 1.12;
+      }
+      .pain-final {
+        margin-top: 12px;
+        width: min(84vw, 700px);
+        padding: 7px 10px;
+        font-size: 8.2px;
+        line-height: 1.18;
+      }
+      .two-col,
+      .contact-layout {
+        height: calc(100svh - 76px);
+        grid-template-columns: minmax(0, 1fr) minmax(210px, .58fr);
+        gap: 22px;
+      }
+      .case-slide .two-col {
+        margin-top: 26px;
+      }
+      .question-title {
+        white-space: nowrap;
+        font-size: clamp(14px, 1.72vw, 16px);
+        line-height: 1.1;
+      }
+      .mobile-break {
+        display: block;
+      }
+      .slide[data-title="среда"] .question-title {
+        white-space: normal;
+        font-size: clamp(17px, 2.2vw, 20px);
+      }
+      .lead {
+        margin-top: 16px;
+        max-width: 430px;
+        font-size: 11px;
+        line-height: 1.2;
+      }
+      .case-slide .lead {
+        margin-top: 16px;
+      }
+      .benefit {
+        margin-top: 9px;
+        font-size: 8.7px;
+        line-height: 1.18;
+      }
+      .media-stack,
+      .case-slide .media-stack,
+      .slide[data-title="подход"] .media-stack {
+        width: min(27vw, 220px);
+        gap: 6px;
+      }
+      .case-slide .media-card img,
+      .slide[data-title="подход"] .media-card img {
+        aspect-ratio: 16 / 7.1;
+      }
+      .case-slide .media-card.tall img,
+      .slide[data-title="подход"] .media-card.tall img {
+        aspect-ratio: 16 / 7.8;
+      }
+      .media-title {
+        left: 8px;
+        bottom: 6px;
+        font-size: 9px;
+      }
+      .play {
+        width: 40px;
+        height: 40px;
+      }
+      .play::before {
+        left: 16px;
+        top: 12px;
+        border-left-width: 12px;
+        border-top-width: 8px;
+        border-bottom-width: 8px;
+      }
+      .system {
+        margin-top: 18px;
+        padding: 12px 14px;
+      }
+      .system h3 {
+        font-size: 15px;
+      }
+      .system p {
+        margin-top: 10px;
+        font-size: 10px;
+      }
+      .case-system {
+        margin-top: 14px;
+        width: min(49vw, 390px);
+        padding: 9px 12px 10px;
+      }
+      .case-system h3 {
+        font-size: 12px;
+      }
+      .case-system p {
+        margin-top: 7px;
+        font-size: 8.5px;
+        line-height: 1.18;
+      }
+      .section-title {
+        margin-top: 38px;
+        font-size: clamp(24px, 3.1vw, 27px);
+      }
+      .chain {
+        margin-top: 10px;
+        font-size: clamp(15px, 2.35vw, 20px);
+      }
+      .format-grid {
+        margin-top: 10px;
+        width: min(74vw, 680px);
+        gap: 7px;
+      }
+      .format-card {
+        min-height: 74px;
+        padding: 8px 10px 8px 14px;
+      }
+      .format-card b {
+        font-size: 8px;
+      }
+      .format-card h3 {
+        margin-top: 7px;
+        font-size: 12px;
+      }
+      .format-card p {
+        margin-top: 5px;
+        font-size: 8px;
+        line-height: 1.16;
+      }
+      .slide[data-title="автор"] .two-col {
+        align-items: center;
+        transform: translateY(-18px);
+      }
+      .slide[data-title="автор"] h2 {
+        font-size: 26px;
+      }
+      .role {
+        margin-top: 12px;
+        font-size: 14px;
+      }
+      .formats {
+        margin-top: 16px;
+        font-size: 16px;
+      }
+      .expert {
+        margin-top: 12px;
+        max-width: 390px;
+        font-size: 9px;
+        line-height: 1.18;
+      }
+      .slide[data-title="автор"] .portrait {
+        width: min(22vw, 160px);
+      }
+      .contact-layout {
+        padding-top: 22px;
+        grid-template-columns: minmax(0, 1fr) minmax(150px, .32fr);
+        gap: 28px;
+      }
+      .contact-layout > div:first-child > h2 {
+        font-size: clamp(24px, 3.2vw, 27px);
+      }
+      .contact-name {
+        margin-top: 12px;
+      }
+      .contact-name h2 {
+        font-size: clamp(20px, 2.8vw, 24px);
+      }
+      .contact-name p {
+        margin-top: 9px !important;
+        font-size: 10px;
+      }
+      .philosophy {
+        margin-top: 12px;
+      }
+      .philosophy h2 {
+        font-size: clamp(15px, 2.2vw, 18px);
+      }
+      .philosophy p {
+        margin-top: 8px;
+        font-size: 9px;
+      }
+      .contact-stack {
+        width: min(15vw, 118px);
+        gap: 5px;
+      }
+      .contact-stack .portrait {
+        max-width: 118px;
+      }
+      .contact-card {
+        min-height: 34px;
+        padding: 4px 7px;
+      }
+      .contact-card b {
+        display: none;
+        font-size: 8px;
+      }
+      .contact-card h3 {
+        margin-top: 3px;
+        font-size: 9px;
+      }
+      .contact-card p {
+        margin-top: 3px;
+        font-size: 7px;
+      }
+      .contact-line {
+        grid-template-columns: 17px minmax(0, 1fr);
+        gap: 5px;
+      }
+      .tg {
+        width: 17px;
+        height: 17px;
+      }
+      .contact-line a,
+      .contact-line span {
+        font-size: 6.8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .deck::before,
+      .deck::after,
+      .slide::before,
+      .slide[data-title="боль"],
+      .slide[data-title="старт"],
+      .tab.active,
+      .slide.active .pain-card,
+      .slide.active .q {
+        animation: none !important;
+      }
+
+      .reveal,
+      .slides {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="rotate-hint" aria-hidden="true">
+    <div class="rotate-card">
+      <div class="rotate-icon" aria-hidden="true"></div>
+      <b>мобильный просмотр</b>
+      <h2>Поверните телефон</h2>
+      <p>Так кадры откроются в&nbsp;полной композиции.</p>
+    </div>
+  </div>
+  <main class="deck" aria-label="Портфолио Андрей Клавдиев">
+    <nav class="tabs" aria-label="Навигация по презентации">
+      <button class="tab active" data-go="0" data-content="tabs.pain">зачем</button>
+      <button class="tab" data-go="1" data-content="tabs.start">диагностика</button>
+      <button class="tab" data-go="2" data-content="tabs.author">автор</button>
+      <button class="tab" data-go="3" data-content="tabs.formats">услуги</button>
+      <button class="tab" data-go="4" data-content="tabs.engagement">вовлечь</button>
+      <button class="tab" data-go="5" data-content="tabs.space">направить</button>
+      <button class="tab" data-go="6" data-content="tabs.pitch">продать</button>
+      <button class="tab" data-go="7" data-content="tabs.approach">логика</button>
+      <button class="tab" data-go="8" data-content="tabs.contact">контакт</button>
+    </nav>
+
+    <button class="arrow prev" type="button" aria-label="Предыдущий слайд">‹</button>
+    <button class="arrow next" type="button" aria-label="Следующий слайд">›</button>
+
+    <div class="slides">
+      <section class="slide active" data-title="боль">
+        <div class="eyebrow reveal" data-content="slides.pain.eyebrow">ЗАЧЕМ ИНТЕРАКТИВ</div>
+        <h1 class="pain-title reveal d1" data-content="slides.pain.title">Вау-экран не работает.<br>Что делать, если человек...</h1>
+        <p class="pain-subtitle reveal d2" data-content="slides.pain.subtitle"></p>
+        <div class="pain-grid reveal d3">
+          <article class="pain-card" data-content="slides.pain.cards.0">Проходит мимо</article>
+          <article class="pain-card" data-content="slides.pain.cards.1">Не считывает смысл</article>
+          <article class="pain-card" data-content="slides.pain.cards.2">Не совершает действие</article>
+          <article class="pain-card" data-content="slides.pain.cards.3">Не возвращается</article>
+        </div>
+        <p class="pain-final reveal d4" data-content="slides.pain.final">Система продукта<br>цель бизнеса &gt; аудитория &gt; UX &gt; сценарий &gt; механика &gt; визуал &gt; запуск &gt; результат</p>
+        <div class="footer" data-content="meta.footer">Андрей Клавдиев · Product Producer | Creative Producer</div><div class="num">00</div>
+      </section>
+
+      <section class="slide" data-title="старт">
+        <div class="eyebrow reveal" data-content="slides.start.eyebrow">СТАРТ ПРОЕКТА</div>
+        <h1 class="cover-title reveal d1" data-content="slides.start.title"><span class="nowrap">Хотим добавить интерактив.</span><br>С чего начать?</h1>
+        <div class="diag reveal d2">
+          <small data-content="slides.start.diagnosisLabel">Диагностика</small>
+          <strong data-content="slides.start.diagnosisTitle">4 вопроса</strong>
+          <span data-content="slides.start.diagnosisText">от&nbsp;идеи<br>к&nbsp;продукту</span>
+        </div>
+        <div class="questions reveal d3">
+          <article class="q"><b data-content="slides.start.questions.0.number">01</b><h3 data-content="slides.start.questions.0.title">Для кого?</h3><p data-content="slides.start.questions.0.text">Кто будет взаимодействовать.</p></article>
+          <article class="q"><b data-content="slides.start.questions.1.number">02</b><h3 data-content="slides.start.questions.1.title">Где?</h3><p data-content="slides.start.questions.1.text">Площадка, поток людей.</p></article>
+          <article class="q"><b data-content="slides.start.questions.2.number">03</b><h3 data-content="slides.start.questions.2.title">Действие?</h3><p data-content="slides.start.questions.2.text">Что человек делает и&nbsp;какой понятный отклик получает.</p></article>
+          <article class="q"><b data-content="slides.start.questions.3.number">04</b><h3 data-content="slides.start.questions.3.title">Зачем?</h3><p data-content="slides.start.questions.3.text">Эмоция, фото, заявка, понимание, продажа.</p></article>
+        </div>
+        <div class="footer" data-content="meta.footer">Андрей Клавдиев · Product Producer | Creative Producer</div><div class="num">01</div>
+      </section>
+
+      <section class="slide" data-title="автор">
+        <div class="eyebrow reveal" data-content="slides.author.eyebrow">КТО ДЕЛАЕТ</div>
+        <div class="two-col">
+          <div>
+            <h2 class="reveal d1" data-content="slides.author.name">Андрей Клавдиев</h2>
+            <div class="role reveal d2" data-content="slides.author.role">Product Producer | Creative Producer</div>
+            <div class="formats reveal d3" data-content="slides.author.formats">Инсталляции · Игры · Приложения</div>
+            <p class="expert reveal d4" data-content="slides.author.expert"><strong>Сильная продюсерская экспертиза: от&nbsp;идеи / задумки до&nbsp;продукта.</strong><br><br>Создаю интерактивные продукты и&nbsp;отвечаю за&nbsp;качество результата: что человек делает, какой отклик получает, как&nbsp;это выглядит и&nbsp;как&nbsp;работает на&nbsp;площадке. Опыт режиссуры, геймдизайна, постпродакшна и&nbsp;международных проектов помогает держать в&nbsp;фокусе и&nbsp;смысл, и&nbsp;производство.</p>
+          </div>
+          <img class="portrait reveal d2" src="assets/images/portrait.jpg" alt="Андрей Клавдиев">
+        </div>
+        <div class="footer" data-content="meta.footer">Андрей Клавдиев · Product Producer | Creative Producer</div><div class="num">02</div>
+      </section>
+
+      <section class="slide" data-title="форматы">
+        <div class="eyebrow reveal" data-content="slides.formats.eyebrow">УСЛУГИ / СПОСОБЫ СОТРУДНИЧЕСТВА</div>
+        <h2 class="section-title reveal d1" data-content="slides.formats.title">На каком этапе я усиливаю проект?</h2>
+        <div class="chain reveal d2" data-content="slides.formats.chain">задача &gt; механика &gt; запуск</div>
+        <div class="format-grid reveal d3">
+          <article class="format-card"><b data-content="slides.formats.cards.0.number">01</b><h3 data-content="slides.formats.cards.0.title">Полный цикл</h3><p data-content="slides.formats.cards.0.text">Запрос, концепция, команда, производство, тест, запуск.</p></article>
+          <article class="format-card"><b data-content="slides.formats.cards.1.number">02</b><h3 data-content="slides.formats.cards.1.title">Концепция</h3><p data-content="slides.formats.cards.1.text">Идея, механика участия, сценарий, визуальная логика, вау-ход.</p></article>
+          <article class="format-card"><b data-content="slides.formats.cards.2.number">03</b><h3 data-content="slides.formats.cards.2.title">Консалтинг</h3><p data-content="slides.formats.cards.2.text">Разбор проекта, user journey, слабые места, следующие шаги.</p></article>
+          <article class="format-card"><b data-content="slides.formats.cards.3.number">04</b><h3 data-content="slides.formats.cards.3.title">Креатив + техника</h3><p data-content="slides.formats.cards.3.text">Эффектное решение в реальном бюджете и понятной реализации.</p></article>
+        </div>
+        <div class="footer" data-content="meta.footer">Андрей Клавдиев · Product Producer | Creative Producer</div><div class="num">03</div>
+      </section>
+
+      <section class="slide case-slide" data-title="вовлечение">
+        <div class="eyebrow reveal" data-content="slides.engagement.eyebrow">ФОРМАТ 01 / ВОВЛЕЧЕНИЕ</div>
+        <div class="two-col">
+          <div>
+            <h2 class="question-title reveal d1" data-content="slides.engagement.title">Как остановить человека и включить его в действие?</h2>
+            <p class="lead reveal d2" data-content="slides.engagement.subtitle">Не экран ради экрана, а короткая механика: человек понимает, что делать, получает отклик и хочет повторить.</p>
+            <div class="case-system reveal d3">
+              <h3 data-content="slides.engagement.systemTitle">Система вовлечения</h3>
+              <p data-content="slides.engagement.systemText">контекст &gt; понятное действие &gt; отклик &gt; интерес &gt; участие</p>
+            </div>
+            <p class="benefit reveal d4" data-content="slides.engagement.benefit">Пространство перестает быть декорацией и начинает собирать участие.</p>
+          </div>
+          <div class="media-stack reveal d2">
+            <a class="media-card" href="assets/video/udar-attacker.mp4" data-video-src="assets/video/udar-attacker.mp4" data-drive-id="1Nn7wXhXOo4PqxGTiT_kVLem5z3r632cX" data-drive-url="https://drive.google.com/file/d/1Nn7wXhXOo4PqxGTiT_kVLem5z3r632cX/view?usp=sharing"><img src="assets/images/udar-attacker.jpg" alt="Удар нападающего"><span class="play"></span><span class="media-title" data-content="slides.engagement.media.attacker">Удар нападающего</span></a>
+            <a class="media-card" href="assets/video/udar-app.mp4" data-video-src="assets/video/udar-app.mp4" data-drive-id="1zTi-h7-lsp_QXkuaj9GIO0e8GqyqE3ZP" data-drive-url="https://drive.google.com/file/d/1zTi-h7-lsp_QXkuaj9GIO0e8GqyqE3ZP/view?usp=sharing"><img src="assets/images/udar-app.jpg" alt="Удар / приложение"><span class="play"></span><span class="media-title" data-content="slides.engagement.media.app">Удар / приложение</span></a>
+            <div class="case-note"><h3 data-content="slides.engagement.caseTitle">Кейс: удар нападающего</h3><p data-content="slides.engagement.caseText">Физическое действие превращается в&nbsp;понятный цифровой отклик: человек видит результат, повторяет попытку и&nbsp;включается в&nbsp;механику.</p></div>
+          </div>
+        </div>
+        <div class="footer" data-content="meta.footer">Андрей Клавдиев · Product Producer | Creative Producer</div><div class="num">04</div>
+      </section>
+
+      <section class="slide case-slide" data-title="среда">
+        <div class="eyebrow reveal" data-content="slides.space.eyebrow">ФОРМАТ 02 / ПРОСТРАНСТВЕННЫЙ СЦЕНАРИЙ</div>
+        <div class="two-col">
+          <div>
+            <h2 class="question-title reveal d1" data-content="slides.space.title">Как сделать так, чтобы человек сам понял маршрут?</h2>
+            <p class="lead reveal d2" data-content="slides.space.subtitle">Свет, звук, экран, объект и действие работают как навигация. Человеку не нужно объяснять — среда ведет его сама.</p>
+            <div class="case-system reveal d3">
+              <h3 data-content="slides.space.systemTitle">Система пространства</h3>
+              <p data-content="slides.space.systemText">зона &gt; свет &gt; звук &gt; экран &gt; понятный маршрут</p>
+            </div>
+            <p class="benefit reveal d4" data-content="slides.space.benefit">Меньше хаоса на площадке, выше вовлечение, понятнее опыт.</p>
+          </div>
+          <div class="media-stack reveal d2">
+            <article class="media-card tall" data-image="assets/images/photozone.jpg"><img src="assets/images/photozone.jpg" alt="Фотозона"><span class="media-title" data-content="slides.space.media.photozone">Фотозона</span></article>
+            <a class="media-card" href="assets/video/vef.mp4" data-video-src="assets/video/vef.mp4" data-drive-id="1X146TM3tkw-TTyF3YupPvIe4bA8aNhQ7" data-drive-url="https://drive.google.com/file/d/1X146TM3tkw-TTyF3YupPvIe4bA8aNhQ7/view?usp=sharing"><img src="assets/images/vef.jpg" alt="Площадка ВЭФ"><span class="play"></span><span class="media-title" data-content="slides.space.media.vef">Площадка ВЭФ</span></a>
+            <div class="case-note"><h3 data-content="slides.space.caseTitle">Зона взаимодействия</h3><p data-content="slides.space.caseText">Фотозона и&nbsp;площадка работают как&nbsp;часть сценария: человек понимает, куда смотреть, что&nbsp;делать и&nbsp;зачем участвовать.</p></div>
+          </div>
+        </div>
+        <div class="footer" data-content="meta.footer">Андрей Клавдиев · Product Producer | Creative Producer</div><div class="num">05</div>
+      </section>
+
+      <section class="slide case-slide" data-title="макет">
+        <div class="eyebrow reveal" data-content="slides.pitch.eyebrow">ФОРМАТ 03 / ВИЗУАЛЬНОЕ ПРЕДЛОЖЕНИЕ</div>
+        <div class="two-col">
+          <div>
+            <h2 class="question-title reveal d1" data-content="slides.pitch.title">Как продать идею до производства?</h2>
+            <p class="lead reveal d2" data-content="slides.pitch.subtitle">Макет, видео и визуальная сборка помогают заказчику увидеть масштаб, атмосферу и ценность решения до затрат на реализацию.</p>
+            <div class="case-system reveal d3">
+              <h3 data-content="slides.pitch.systemTitle">Система аргументации</h3>
+              <p data-content="slides.pitch.systemText">концепция &gt; форма &gt; масштаб &gt; впечатление &gt; согласование</p>
+            </div>
+            <p class="benefit reveal d4" data-content="slides.pitch.benefit">Быстрее согласование, меньше абстракции, сильнее доверие.</p>
+          </div>
+          <div class="media-stack reveal d2">
+            <article class="media-card tall" data-image="assets/images/maket-photo.jpg"><img src="assets/images/maket-photo.jpg" alt="Макет"></article>
+            <a class="media-card" href="assets/video/maket-small.mp4" data-video-src="assets/video/maket-small.mp4" data-drive-id="1ONKzsnP6MpZiRHOsiHOtZeQCwWco6ooE" data-drive-url="https://drive.google.com/file/d/1ONKzsnP6MpZiRHOsiHOtZeQCwWco6ooE/view?usp=sharing"><img src="assets/images/maket-video.jpg" alt="Макет / видео"><span class="play"></span><span class="media-title" data-content="slides.pitch.media.video">Макет / видео</span></a>
+            <div class="case-note"><h3 data-content="slides.pitch.caseTitle">Макет + видеодемонстрация</h3><p data-content="slides.pitch.caseText">Макет помогает увидеть логику, эстетику и&nbsp;ценность предложения до&nbsp;производства.</p></div>
+          </div>
+        </div>
+        <div class="footer" data-content="meta.footer">Андрей Клавдиев · Product Producer | Creative Producer</div><div class="num">06</div>
+      </section>
+
+      <section class="slide case-slide" data-title="подход">
+        <div class="eyebrow reveal" data-content="slides.approach.eyebrow">ПОДХОД / ИГРОВАЯ ЛОГИКА</div>
+        <div class="two-col">
+          <div>
+            <h2 class="question-title reveal d1" data-content="slides.approach.title">Не игра ради игры. Механика, которая ведет человека к действию.</h2>
+            <p class="lead reveal d2" data-content="slides.approach.subtitle">Игровая логика помогает человеку быстро понять, что делать, зачем участвовать и какой результат он получает.</p>
+            <div class="case-system reveal d3">
+              <h3 data-content="slides.approach.systemTitle">Система решений</h3>
+              <p data-content="slides.approach.systemText">контекст &gt; желание &gt; действие &gt; отклик &gt; эмоция &gt; результат</p>
+            </div>
+          </div>
+          <div class="media-stack reveal d2">
+            <article class="media-card tall" data-image="assets/images/match-photo.jpg"><img src="assets/images/match-photo.jpg" alt="Фото матча"><span class="media-title" data-content="slides.approach.media.photo">Фото матча</span></article>
+            <a class="media-card" href="assets/video/match-pro.mp4" data-video-src="assets/video/match-pro.mp4" data-drive-id="1DQ1oij3VwZ-JpY0b6tV194s8FVVnrlBG" data-drive-url="https://drive.google.com/file/d/1DQ1oij3VwZ-JpY0b6tV194s8FVVnrlBG/view?usp=sharing"><img src="assets/images/match-pro.jpg" alt="Матч с профессионалом"><span class="play"></span></a>
+          </div>
+        </div>
+        <div class="footer" data-content="meta.footer">Андрей Клавдиев · Product Producer | Creative Producer</div><div class="num">07</div>
+      </section>
+
+      <section class="slide" data-title="контакт">
+        <div class="eyebrow reveal" data-content="slides.contact.eyebrow">КОНТАКТ</div>
+        <div class="contact-layout">
+          <div>
+            <h2 class="reveal d1" data-content="slides.contact.title">Готов обсудить задачу</h2>
+            <div class="contact-name reveal d2">
+              <h2 data-content="slides.contact.name">Андрей Клавдиев</h2>
+              <p style="margin-top:28px" data-content="slides.contact.role">Product Producer | Creative Producer<br>Инсталляции · Игры · Приложения</p>
+            </div>
+            <div class="philosophy reveal d3">
+              <h2 data-content="slides.contact.philosophy">Слышу. Вижу. Создаю.</h2>
+              <p data-content="slides.contact.principle">Выразительно &gt; Понятно &gt; Полезно</p>
+            </div>
+          </div>
+          <div class="contact-stack reveal d2">
+            <img class="portrait" src="assets/images/portrait.jpg" alt="Андрей Клавдиев">
+            <article class="contact-card"><h3 data-content="slides.contact.sendTitle">Что прислать</h3><p data-content="slides.contact.sendText">цель / аудитория / площадка / ограничения</p></article>
+            <article class="contact-card"><h3 data-content="slides.contact.contactTitle">Контакты</h3><div class="contact-line"><a href="https://t.me/andrey_klavdiev" data-href-content="slides.contact.telegram" target="_blank" rel="noopener"><img class="tg" src="assets/images/telegram.png" alt="Telegram"></a><div><a href="mailto:klavdiev4593@mail.ru" data-href-content="slides.contact.email" data-href-prefix="mailto:" data-content="slides.contact.email">klavdiev4593@mail.ru</a><span data-content="slides.contact.phone">+7 917 546 18 07</span></div></div></article>
+          </div>
+        </div>
+        <div class="footer" data-content="meta.footer">Андрей Клавдиев · Product Producer | Creative Producer</div><div class="num">08</div>
+      </section>
+    </div>
+
+    <div class="progress" aria-hidden="true"><i></i></div>
+  </main>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <button class="close" type="button" aria-label="Закрыть">×</button>
+    <div class="modal-frame" id="modalFrame"></div>
+  </div>
+
+  <script src="assets/js/content.js" charset="utf-8"></script>
+  <script>
+    function contentValue(path) {
+      return path.split('.').reduce((value, part) => {
+        if (value == null) return undefined;
+        return value[part];
+      }, window.PORTFOLIO_CONTENT);
+    }
+
+    function renderContent(value) {
+      return String(value ?? '').replace(/\n/g, '<br>');
+    }
+
+    function applyContentConfig() {
+      if (!window.PORTFOLIO_CONTENT) return;
+      document.querySelectorAll('[data-content]').forEach((node) => {
+        const value = contentValue(node.dataset.content);
+        if (value == null) return;
+        node.innerHTML = renderContent(value);
+      });
+      document.querySelectorAll('[data-href-content]').forEach((node) => {
+        const value = contentValue(node.dataset.hrefContent);
+        if (value == null) return;
+        node.setAttribute('href', `${node.dataset.hrefPrefix || ''}${value}`);
+      });
+    }
+
+    applyContentConfig();
+
+    const slides = [...document.querySelectorAll('.slide')];
+    const tabs = [...document.querySelectorAll('.tab')];
+    const rail = document.querySelector('.slides');
+    const progress = document.querySelector('.progress i');
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
+    const modal = document.querySelector('#modal');
+    const modalFrame = document.querySelector('#modalFrame');
+    const closeModal = document.querySelector('.close');
+    const mobileQuery = window.matchMedia('(max-width: 980px)');
+    const portraitQuery = window.matchMedia('(max-width: 980px) and (orientation: portrait)');
+    let current = 0;
+
+    function isPortraitMobile() {
+      return mobileQuery.matches && window.innerHeight > window.innerWidth;
+    }
+
+    function isTouchDevice() {
+      return navigator.maxTouchPoints > 0 || mobileQuery.matches;
+    }
+
+    function setActive(index) {
+      current = Math.max(0, Math.min(slides.length - 1, index));
+      document.documentElement.style.setProperty('--current-slide', current);
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+      tabs.forEach((tab, i) => tab.classList.toggle('active', i === current));
+      if (progress) progress.style.transform = `scaleX(${current + 1})`;
+    }
+
+    function go(index, options = {}) {
+      if (options.instant) {
+        rail.style.transition = 'none';
+        document.documentElement.classList.add('instant-load');
+      }
+      setActive(index);
+      if (isPortraitMobile()) {
+        rail.style.transform = 'none';
+      } else {
+        rail.style.transform = '';
+      }
+      location.hash = slides[current].dataset.title;
+      if (options.instant) {
+        rail.offsetHeight;
+        rail.style.transition = '';
+        requestAnimationFrame(() => document.documentElement.classList.remove('instant-load'));
+      }
+    }
+
+    tabs.forEach((tab) => tab.addEventListener('click', () => go(Number(tab.dataset.go))));
+    prev.addEventListener('click', () => go(current - 1));
+    next.addEventListener('click', () => go(current + 1));
+
+    window.addEventListener('keydown', (event) => {
+      if (modal.classList.contains('open') && event.key === 'Escape') return hideModal();
+      if (event.key === 'ArrowRight' || event.key === 'PageDown') go(current + 1);
+      if (event.key === 'ArrowLeft' || event.key === 'PageUp') go(current - 1);
+      if (event.key === 'Home') go(0);
+      if (event.key === 'End') go(slides.length - 1);
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    rail.addEventListener('touchstart', (event) => {
+      const touch = event.changedTouches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+    }, { passive: true });
+
+    rail.addEventListener('touchend', (event) => {
+      if (isTouchDevice()) return;
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - touchStartX;
+      const dy = touch.clientY - touchStartY;
+      if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.35) return;
+      go(current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    function drivePreviewUrl(id) {
+      return `https://drive.google.com/file/d/${id}/preview`;
+    }
+
+    function driveViewUrl(id) {
+      return `https://drive.google.com/file/d/${id}/view?usp=sharing`;
+    }
+
+    function showVideo(src, poster = '', label = '') {
+      modalFrame.classList.add('video-frame');
+      const posterAttr = poster ? ` poster="${poster}"` : '';
+      const labelAttr = label ? ` aria-label="${label}"` : '';
+      modalFrame.innerHTML = `<video src="${src}" controls autoplay playsinline preload="metadata"${posterAttr}${labelAttr}></video>`;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      modalFrame.querySelector('video')?.play?.().catch(() => {});
+    }
+
+    function showImage(src) {
+      modalFrame.classList.remove('video-frame');
+      modalFrame.innerHTML = `<img src="${src}" alt="">`;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      modalFrame.classList.remove('video-frame');
+      modalFrame.innerHTML = '';
+    }
+
+    document.querySelectorAll('[data-video-src]').forEach(card => card.addEventListener('click', (event) => {
+      event.preventDefault();
+      const img = card.querySelector('img');
+      const title = card.querySelector('.media-title')?.textContent?.trim() || img?.alt || '';
+      showVideo(card.dataset.videoSrc, img?.getAttribute('src') || '', title);
+    }));
+    document.querySelectorAll('[data-image]').forEach(card => card.addEventListener('click', () => showImage(card.dataset.image)));
+    closeModal.addEventListener('click', hideModal);
+    modal.addEventListener('click', (event) => { if (event.target === modal) hideModal(); });
+
+    let scrollSync = 0;
+    window.addEventListener('scroll', () => {
+      if (!isPortraitMobile()) return;
+      window.clearTimeout(scrollSync);
+      scrollSync = window.setTimeout(() => {
+        const index = slides.reduce((best, slide, i) => {
+          const distance = Math.abs(slide.getBoundingClientRect().top);
+          return distance < best.distance ? { index: i, distance } : best;
+        }, { index: current, distance: Infinity }).index;
+        if (index !== current) {
+          setActive(index);
+          history.replaceState(null, '', `#${encodeURIComponent(slides[current].dataset.title)}`);
+        }
+      }, 80);
+    }, { passive: true });
+
+    mobileQuery.addEventListener('change', () => {
+      if (isPortraitMobile()) {
+        rail.style.transform = 'none';
+      } else {
+        go(current, { scroll: false, instant: true });
+      }
+    });
+
+    portraitQuery.addEventListener('change', () => {
+      go(current, { scroll: false, instant: true });
+    });
+
+    const hash = decodeURIComponent(location.hash.replace('#', ''));
+    const start = slides.findIndex(slide => slide.dataset.title === hash);
+    go(start >= 0 ? start : 0, { instant: true });
+  </script>
+</body>
+</html>
+
