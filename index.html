@@ -229,7 +229,7 @@
 
     .section-title {
       margin-top: clamp(72px, 9.2vh, 102px);
-      font-size: clamp(34px, 2.25vw, 42px);
+      font-size: clamp(28px, 1.82vw, 35px);
       line-height: 1.16;
       max-width: none;
       white-space: nowrap;
@@ -334,7 +334,7 @@
     }
 
     .q {
-      border-top: 1px solid var(--soft);
+      border-top: 1px solid var(--accent, var(--soft));
       padding-top: clamp(20px, 1.6vw, 28px);
       padding-right: clamp(10px, 1vw, 18px);
       padding-bottom: clamp(36px, 2.6vw, 48px);
@@ -345,7 +345,20 @@
       overflow: hidden;
     }
 
-    .q b { color: var(--soft); font-size: 14px; }
+    .pain-card:nth-child(1),
+    .q:nth-child(1),
+    .format-card:nth-child(1) { --accent: #c8bfae; --accent-rgb: 200, 191, 174; }
+    .pain-card:nth-child(2),
+    .q:nth-child(2),
+    .format-card:nth-child(2) { --accent: #88b9b0; --accent-rgb: 136, 185, 176; }
+    .pain-card:nth-child(3),
+    .q:nth-child(3),
+    .format-card:nth-child(3) { --accent: #9fa8c7; --accent-rgb: 159, 168, 199; }
+    .pain-card:nth-child(4),
+    .q:nth-child(4),
+    .format-card:nth-child(4) { --accent: #c0a87f; --accent-rgb: 192, 168, 127; }
+
+    .q b { color: var(--accent, var(--soft)); font-size: 14px; }
     .q h3 { margin-top: 24px; font-size: clamp(24px, 2vw, 34px); }
     .q p {
       margin-top: clamp(18px, 1.4vw, 24px);
@@ -377,17 +390,17 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: clamp(14px, 2vw, 28px);
-      width: min(86vw, 1460px);
+      width: min(94vw, 1720px);
     }
 
     .pain-card {
-      border-top: 1px solid var(--soft);
+      border-top: 1px solid var(--accent, var(--soft));
       padding-top: 15px;
       padding-right: clamp(10px, 1vw, 18px);
       padding-left: clamp(12px, 1.2vw, 22px);
       min-height: 68px;
       color: var(--ink);
-      font-size: clamp(17px, 1.34vw, 23px);
+      font-size: clamp(15px, 1vw, 19px);
       line-height: 1.15;
       font-weight: 700;
       white-space: nowrap;
@@ -398,7 +411,7 @@
 
     .slide.active .pain-card,
     .slide.active .q {
-      animation: linePulse 7.2s ease-in-out infinite;
+      animation: linePulse 3.6s ease-in-out infinite;
     }
 
     .slide.active .pain-card:nth-child(1),
@@ -411,21 +424,21 @@
     .slide.active .q:nth-child(4) { animation-delay: 2.7s; }
 
     @keyframes linePulse {
-      0%, 8%, 100% {
-        border-color: rgba(200,191,174,.58);
-        color: var(--ink);
-        transform: translateY(0) scale(1);
-        box-shadow: inset 0 1px 0 rgba(200,191,174,0);
-      }
-      14%, 22% {
-        border-color: rgba(241,238,231,.98);
+      0%, 18% {
+        border-color: var(--accent, var(--soft));
         color: #fffaf0;
         transform: translateY(-3px) scale(1.025);
-        box-shadow: inset 0 1px 0 rgba(241,238,231,.9), 0 12px 28px rgba(200,191,174,.08);
+        background:
+          linear-gradient(90deg, rgba(var(--accent-rgb, 200, 191, 174), .13), transparent 58%),
+          rgba(26,28,30,.74);
+        box-shadow: inset 0 1px 0 rgba(var(--accent-rgb, 200, 191, 174), .88), 0 12px 28px rgba(var(--accent-rgb, 200, 191, 174), .10);
       }
-      32% {
-        border-color: rgba(200,191,174,.66);
+      26%, 100% {
+        border-color: rgba(var(--accent-rgb, 200, 191, 174), .58);
+        color: var(--ink);
         transform: translateY(0) scale(1);
+        background: rgba(26,28,30,0);
+        box-shadow: inset 0 1px 0 rgba(var(--accent-rgb, 200, 191, 174), 0);
       }
     }
 
@@ -646,11 +659,6 @@
       background: var(--accent, var(--soft));
       opacity: 1;
     }
-
-    .format-card:nth-child(1) { --accent: #c8bfae; }
-    .format-card:nth-child(2) { --accent: #88b9b0; }
-    .format-card:nth-child(3) { --accent: #9fa8c7; }
-    .format-card:nth-child(4) { --accent: #c0a87f; }
 
     .format-card b { color: var(--accent, var(--soft)); font-size: 14px; font-weight: 800; }
     .format-card h3 { margin-top: 24px; font-size: clamp(22px, 1.8vw, 30px); color: var(--ink); }
@@ -1020,6 +1028,10 @@
         line-height: 1.08;
       }
       .cover-title { font-size: clamp(30px, 4.2vw, 36px); }
+      .slide[data-title="старт"] .cover-title {
+        max-width: 54vw;
+        font-size: clamp(27px, 3.45vw, 34px);
+      }
       .diag {
         position: absolute;
         right: 8vw;
@@ -1063,16 +1075,16 @@
       }
       .pain-grid {
         margin-top: 22px;
-        width: min(86vw, 760px);
+        width: min(90vw, 820px);
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 8px;
+        gap: 7px;
       }
       .pain-card {
         min-height: 56px;
         padding-top: 10px;
-        padding-right: 7px;
-        padding-left: 9px;
-        font-size: 12px;
+        padding-right: 6px;
+        padding-left: 8px;
+        font-size: 11px;
       }
       .pain-final {
         margin-top: 18px;
@@ -1094,7 +1106,10 @@
         align-items: start;
       }
       .question-title,
-      .section-title { white-space: normal; }
+      .section-title {
+        font-size: clamp(19px, 2.55vw, 24px);
+        white-space: normal;
+      }
       .nowrap { white-space: nowrap; }
       .question-title {
         font-size: clamp(19px, 2.55vw, 24px);
@@ -1145,7 +1160,7 @@
       .system { margin-top: 28px; width: 100%; padding: 16px 18px; }
       .system h3 { font-size: 18px; }
       .system p { margin-top: 14px; white-space: normal; font-size: 12px; }
-      .section-title { margin-top: 42px; font-size: clamp(22px, 3.7vw, 30px); }
+      .section-title { margin-top: 42px; }
       .chain { margin-top: 14px; font-size: clamp(15px, 2.5vw, 20px); }
       .format-grid {
         margin-top: 18px;
@@ -1232,8 +1247,9 @@
         font-size: clamp(27px, 3.7vw, 32px);
       }
       .cover-title {
-        max-width: 11.2em;
-        font-size: clamp(24px, 3.15vw, 28px);
+        max-width: 54vw;
+        font-size: clamp(22px, 2.75vw, 26px);
+        line-height: 1.05;
       }
       .diag {
         right: 8.5vw;
@@ -1254,17 +1270,17 @@
       .questions {
         left: 72px;
         right: 7vw;
-        bottom: 88px;
+        bottom: 38px;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 2.4vw;
       }
       .q {
-        border-top: 0;
-        padding-top: 0;
+        border-top: 1px solid var(--accent, var(--soft));
+        padding-top: 9px;
         padding-right: 5px;
-        padding-bottom: 10px;
+        padding-bottom: 14px;
         padding-left: 7px;
-        min-height: 66px;
+        min-height: 82px;
       }
       .q b {
         display: none;
@@ -1293,16 +1309,16 @@
       }
       .pain-grid {
         margin-top: 15px;
-        width: min(84vw, 700px);
+        width: min(90vw, 760px);
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 7px;
+        gap: 5px;
       }
       .pain-card {
         min-height: 36px;
         padding-top: 7px;
-        padding-right: 5px;
-        padding-left: 7px;
-        font-size: 9.2px;
+        padding-right: 4px;
+        padding-left: 6px;
+        font-size: 8.4px;
         line-height: 1.12;
       }
       .pain-final {
@@ -1326,12 +1342,17 @@
         font-size: clamp(14px, 1.72vw, 16px);
         line-height: 1.1;
       }
+      .section-title {
+        font-size: clamp(14px, 1.72vw, 16px);
+        line-height: 1.1;
+        white-space: nowrap;
+      }
       .mobile-break {
         display: block;
       }
       .slide[data-title="среда"] .question-title {
-        white-space: normal;
-        font-size: clamp(17px, 2.2vw, 20px);
+        white-space: nowrap;
+        font-size: clamp(14px, 1.72vw, 16px);
       }
       .lead {
         margin-top: 16px;
@@ -1403,7 +1424,6 @@
       }
       .section-title {
         margin-top: 38px;
-        font-size: clamp(24px, 3.1vw, 27px);
       }
       .chain {
         margin-top: 10px;
@@ -1566,13 +1586,13 @@
     <div class="slides">
       <section class="slide active" data-title="боль">
         <div class="eyebrow reveal" data-content="slides.pain.eyebrow">ЗАЧЕМ ИНТЕРАКТИВ</div>
-        <h1 class="pain-title reveal d1" data-content="slides.pain.title">Вау-экран не работает.<br>Что делать, если человек...</h1>
+        <h1 class="pain-title reveal d1" data-content="slides.pain.title">Стенд, музей или бренд-зона должны вести к действию человека.<br>Что делать, если человек...</h1>
         <p class="pain-subtitle reveal d2" data-content="slides.pain.subtitle"></p>
         <div class="pain-grid reveal d3">
-          <article class="pain-card" data-content="slides.pain.cards.0">Проходит мимо</article>
-          <article class="pain-card" data-content="slides.pain.cards.1">Не считывает смысл</article>
-          <article class="pain-card" data-content="slides.pain.cards.2">Не совершает действие</article>
-          <article class="pain-card" data-content="slides.pain.cards.3">Не возвращается</article>
+          <article class="pain-card" data-content="slides.pain.cards.0">Не останавливается</article>
+          <article class="pain-card" data-content="slides.pain.cards.1">Не считывает идею</article>
+          <article class="pain-card" data-content="slides.pain.cards.2">Не взаимодействует</article>
+          <article class="pain-card" data-content="slides.pain.cards.3">Не оставляет заявку или контакт</article>
         </div>
         <p class="pain-final reveal d4" data-content="slides.pain.final">Система продукта<br>цель бизнеса &gt; аудитория &gt; UX &gt; сценарий &gt; механика &gt; визуал &gt; запуск &gt; результат</p>
         <div class="footer" data-content="meta.footer">Андрей Клавдиев · Product Producer | Creative Producer</div><div class="num">00</div>
@@ -1584,13 +1604,13 @@
         <div class="diag reveal d2">
           <small data-content="slides.start.diagnosisLabel">Диагностика</small>
           <strong data-content="slides.start.diagnosisTitle">4 вопроса</strong>
-          <span data-content="slides.start.diagnosisText">от&nbsp;идеи<br>к&nbsp;продукту</span>
+          <span data-content="slides.start.diagnosisText">от идеи<br>к продукту</span>
         </div>
         <div class="questions reveal d3">
-          <article class="q"><b data-content="slides.start.questions.0.number">01</b><h3 data-content="slides.start.questions.0.title">Для кого?</h3><p data-content="slides.start.questions.0.text">Кто будет взаимодействовать.</p></article>
-          <article class="q"><b data-content="slides.start.questions.1.number">02</b><h3 data-content="slides.start.questions.1.title">Где?</h3><p data-content="slides.start.questions.1.text">Площадка, поток людей.</p></article>
-          <article class="q"><b data-content="slides.start.questions.2.number">03</b><h3 data-content="slides.start.questions.2.title">Действие?</h3><p data-content="slides.start.questions.2.text">Что человек делает и&nbsp;какой понятный отклик получает.</p></article>
-          <article class="q"><b data-content="slides.start.questions.3.number">04</b><h3 data-content="slides.start.questions.3.title">Зачем?</h3><p data-content="slides.start.questions.3.text">Эмоция, фото, заявка, понимание, продажа.</p></article>
+          <article class="q"><b data-content="slides.start.questions.0.number">01</b><h3 data-content="slides.start.questions.0.title">Для кого?</h3><p data-content="slides.start.questions.0.text">Кто приходит, что ему важно, зачем ему участвовать.</p></article>
+          <article class="q"><b data-content="slides.start.questions.1.number">02</b><h3 data-content="slides.start.questions.1.title">Где?</h3><p data-content="slides.start.questions.1.text">Площадка, поток людей, ограничения, контекст.</p></article>
+          <article class="q"><b data-content="slides.start.questions.2.number">03</b><h3 data-content="slides.start.questions.2.title">Действие?</h3><p data-content="slides.start.questions.2.text">Что человек делает и какой отклик получает.</p></article>
+          <article class="q"><b data-content="slides.start.questions.3.number">04</b><h3 data-content="slides.start.questions.3.title">Результат?</h3><p data-content="slides.start.questions.3.text">Контакт, заявка, понимание, контент, доверие.</p></article>
         </div>
         <div class="footer" data-content="meta.footer">Андрей Клавдиев · Product Producer | Creative Producer</div><div class="num">01</div>
       </section>
@@ -1602,7 +1622,7 @@
             <h2 class="reveal d1" data-content="slides.author.name">Андрей Клавдиев</h2>
             <div class="role reveal d2" data-content="slides.author.role">Product Producer | Creative Producer</div>
             <div class="formats reveal d3" data-content="slides.author.formats">Инсталляции · Игры · Приложения</div>
-            <p class="expert reveal d4" data-content="slides.author.expert"><strong>Сильная продюсерская экспертиза: от&nbsp;идеи / задумки до&nbsp;продукта.</strong><br><br>Создаю интерактивные продукты и&nbsp;отвечаю за&nbsp;качество результата: что человек делает, какой отклик получает, как&nbsp;это выглядит и&nbsp;как&nbsp;работает на&nbsp;площадке. Опыт режиссуры, геймдизайна, постпродакшна и&nbsp;международных проектов помогает держать в&nbsp;фокусе и&nbsp;смысл, и&nbsp;производство.</p>
+            <p class="expert reveal d4" data-content="slides.author.expert">Создаю интерактивные продукты для стендов, музеев, событий и бренд-зон: от бизнес-задачи и поведения человека до сценария, визуального слоя, механики, приложения и запуска.<br><br>Моя сильная зона — собрать вводные в работающую систему: что человек видит, что понимает, что делает, какой отклик получает и какую пользу это дает бизнесу. Опыт режиссуры, видео-продакшна, постпродакшна, геймдизайна и интерактивных решений помогает соединять креатив, пользовательский путь и реализацию без разрыва между идеей и площадкой.</p>
           </div>
           <img class="portrait reveal d2" src="assets/images/portrait.jpg" alt="Андрей Клавдиев">
         </div>
@@ -1629,8 +1649,8 @@
             <h2 class="question-title reveal d1" data-content="slides.engagement.title">Как остановить человека и включить его в действие?</h2>
             <p class="lead reveal d2" data-content="slides.engagement.subtitle">Не экран ради экрана, а короткая механика: человек понимает, что делать, получает отклик и хочет повторить.</p>
             <div class="case-system reveal d3">
-              <h3 data-content="slides.engagement.systemTitle">Система вовлечения</h3>
-              <p data-content="slides.engagement.systemText">контекст &gt; понятное действие &gt; отклик &gt; интерес &gt; участие</p>
+              <h3 data-content="slides.engagement.systemTitle">Система участия</h3>
+              <p data-content="slides.engagement.systemText">аудитория &gt; понятное действие &gt; отклик &gt; интерес &gt; результат &gt; повтор</p>
             </div>
             <p class="benefit reveal d4" data-content="slides.engagement.benefit">Пространство перестает быть декорацией и начинает собирать участие.</p>
           </div>
@@ -1650,8 +1670,8 @@
             <h2 class="question-title reveal d1" data-content="slides.space.title">Как сделать так, чтобы человек сам понял маршрут?</h2>
             <p class="lead reveal d2" data-content="slides.space.subtitle">Свет, звук, экран, объект и действие работают как навигация. Человеку не нужно объяснять — среда ведет его сама.</p>
             <div class="case-system reveal d3">
-              <h3 data-content="slides.space.systemTitle">Система пространства</h3>
-              <p data-content="slides.space.systemText">зона &gt; свет &gt; звук &gt; экран &gt; понятный маршрут</p>
+              <h3 data-content="slides.space.systemTitle">Сценарий движения</h3>
+              <p data-content="slides.space.systemText">вход &gt; подсказки &gt; маршрут &gt; действие &gt; следующий шаг</p>
             </div>
             <p class="benefit reveal d4" data-content="slides.space.benefit">Меньше хаоса на площадке, выше вовлечение, понятнее опыт.</p>
           </div>
@@ -1672,7 +1692,7 @@
             <p class="lead reveal d2" data-content="slides.pitch.subtitle">Макет, видео и визуальная сборка помогают заказчику увидеть масштаб, атмосферу и ценность решения до затрат на реализацию.</p>
             <div class="case-system reveal d3">
               <h3 data-content="slides.pitch.systemTitle">Система аргументации</h3>
-              <p data-content="slides.pitch.systemText">концепция &gt; форма &gt; масштаб &gt; впечатление &gt; согласование</p>
+              <p data-content="slides.pitch.systemText">бизнес &gt; ценность &gt; концепция &gt; визуальный образ &gt; согласование</p>
             </div>
             <p class="benefit reveal d4" data-content="slides.pitch.benefit">Быстрее согласование, меньше абстракции, сильнее доверие.</p>
           </div>
@@ -1692,8 +1712,8 @@
             <h2 class="question-title reveal d1" data-content="slides.approach.title">Не игра ради игры. Механика, которая ведет человека к действию.</h2>
             <p class="lead reveal d2" data-content="slides.approach.subtitle">Игровая логика помогает человеку быстро понять, что делать, зачем участвовать и какой результат он получает.</p>
             <div class="case-system reveal d3">
-              <h3 data-content="slides.approach.systemTitle">Система решений</h3>
-              <p data-content="slides.approach.systemText">контекст &gt; желание &gt; действие &gt; отклик &gt; эмоция &gt; результат</p>
+              <h3 data-content="slides.approach.systemTitle">Продуктовая сборка</h3>
+              <p data-content="slides.approach.systemText">задача &gt; поведение человека &gt; механика &gt; контент &gt; технология &gt; запуск &gt; метрики</p>
             </div>
           </div>
           <div class="media-stack reveal d2">
