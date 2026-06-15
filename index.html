@@ -201,7 +201,7 @@
 
     .cover-title {
       max-width: none;
-      font-size: clamp(34px, 2.55vw, 48px);
+      font-size: clamp(44px, 3vw, 56px);
     }
 
     .nowrap {
@@ -320,7 +320,7 @@
     }
 
     .diag small { color: var(--muted); text-transform: uppercase; font-weight: 700; }
-    .diag strong { display: block; margin-top: 12px; font-size: clamp(34px, 3.1vw, 52px); }
+    .diag strong { display: block; margin-top: 12px; font-size: clamp(30px, 2.45vw, 42px); }
     .diag span { display: block; color: var(--soft); margin-top: 12px; font-size: clamp(16px, 1.4vw, 22px); line-height: 1.25; }
 
     .questions {
@@ -341,7 +341,7 @@
       padding-left: clamp(12px, 1.2vw, 22px);
       min-height: clamp(205px, 17vh, 238px);
       transform-origin: left top;
-      transition: color .3s ease, border-color .3s ease, transform .3s ease;
+      transition: color .65s ease, border-color .65s ease, transform .65s ease, background .65s ease, box-shadow .65s ease;
       overflow: hidden;
     }
 
@@ -359,7 +359,7 @@
     .format-card:nth-child(4) { --accent: #c0a87f; --accent-rgb: 192, 168, 127; }
 
     .q b { color: var(--accent, var(--soft)); font-size: 14px; }
-    .q h3 { margin-top: 24px; font-size: clamp(24px, 2vw, 34px); }
+    .q h3 { margin-top: 24px; font-size: clamp(22px, 1.65vw, 30px); }
     .q p {
       margin-top: clamp(18px, 1.4vw, 24px);
       font-size: clamp(15px, 1.25vw, 22px);
@@ -368,8 +368,8 @@
     }
 
     .pain-title {
-      max-width: min(90vw, 1640px);
-      font-size: clamp(34px, 2.55vw, 48px);
+      max-width: 90vw;
+      font-size: clamp(44px, 3vw, 56px);
       line-height: 1.08;
     }
 
@@ -389,7 +389,7 @@
       position: absolute;
       left: 5vw;
       right: 5vw;
-      bottom: clamp(178px, 22vh, 220px);
+      bottom: clamp(340px, 38vh, 420px);
       margin-top: 0;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -404,28 +404,28 @@
       padding-left: clamp(12px, 1.2vw, 22px);
       min-height: 68px;
       color: var(--ink);
-      font-size: clamp(14px, .9vw, 17px);
+      font-size: clamp(14px, .86vw, 16px);
       line-height: 1.15;
       font-weight: 700;
       white-space: nowrap;
       transform-origin: left top;
-      transition: color .3s ease, border-color .3s ease, transform .3s ease;
+      transition: color .65s ease, border-color .65s ease, transform .65s ease, background .65s ease, box-shadow .65s ease;
       overflow: hidden;
     }
 
     .slide.active .pain-card,
     .slide.active .q {
-      animation: linePulse 7.2s cubic-bezier(.37, 0, .22, 1) infinite;
+      animation: linePulse 14.4s cubic-bezier(.37, 0, .22, 1) infinite;
     }
 
     .slide.active .pain-card:nth-child(1),
     .slide.active .q:nth-child(1) { animation-delay: 0s; }
     .slide.active .pain-card:nth-child(2),
-    .slide.active .q:nth-child(2) { animation-delay: 1.8s; }
+    .slide.active .q:nth-child(2) { animation-delay: 3.6s; }
     .slide.active .pain-card:nth-child(3),
-    .slide.active .q:nth-child(3) { animation-delay: 3.6s; }
+    .slide.active .q:nth-child(3) { animation-delay: 7.2s; }
     .slide.active .pain-card:nth-child(4),
-    .slide.active .q:nth-child(4) { animation-delay: 5.4s; }
+    .slide.active .q:nth-child(4) { animation-delay: 10.8s; }
 
     @keyframes linePulse {
       0%, 8% {
@@ -435,7 +435,7 @@
         background: rgba(26,28,30,0);
         box-shadow: inset 0 1px 0 rgba(var(--accent-rgb, 200, 191, 174), 0);
       }
-      18%, 32% {
+      14%, 38% {
         border-color: var(--accent, var(--soft));
         color: #fffaf0;
         transform: translateY(-2px) scale(1.014);
@@ -444,7 +444,7 @@
           rgba(26,28,30,.74);
         box-shadow: inset 0 1px 0 rgba(var(--accent-rgb, 200, 191, 174), .78), 0 10px 24px rgba(var(--accent-rgb, 200, 191, 174), .08);
       }
-      44%, 100% {
+      52%, 100% {
         border-color: rgba(var(--accent-rgb, 200, 191, 174), .58);
         color: var(--ink);
         transform: translateY(0) scale(1);
@@ -457,7 +457,7 @@
       position: absolute;
       left: 5vw;
       right: 5vw;
-      bottom: clamp(82px, 11vh, 118px);
+      bottom: clamp(184px, 20vh, 220px);
       margin-top: 0;
       width: auto;
       border: 1px solid var(--line);
@@ -465,7 +465,7 @@
       color: var(--soft);
       padding: 16px 24px;
       font-weight: 700;
-      font-size: clamp(14px, .96vw, 18px);
+      font-size: clamp(13px, .9vw, 17px);
       line-height: 1.32;
     }
 
@@ -1627,7 +1627,7 @@
     <div class="slides">
       <section class="slide active" data-title="боль">
         <div class="eyebrow reveal" data-content="slides.pain.eyebrow">ЗАЧЕМ ИНТЕРАКТИВ</div>
-        <h1 class="pain-title reveal d1" data-content="slides.pain.title">Стенд, музей или бренд-зона должны вести к действию человека.<br>Что делать, если человек...</h1>
+        <h1 class="pain-title reveal d1" data-content="slides.pain.title">Интерактив должен вести к действию пользователя.<br>Что делать, если человек...</h1>
         <p class="pain-subtitle reveal d2" data-content="slides.pain.subtitle"></p>
         <div class="pain-grid reveal d3">
           <article class="pain-card" data-content="slides.pain.cards.0">Не останавливается</article>
@@ -1684,7 +1684,7 @@
       </section>
 
       <section class="slide case-slide" data-title="вовлечение">
-        <div class="eyebrow reveal" data-content="slides.engagement.eyebrow">ФОРМАТ 01 / ВОВЛЕЧЕНИЕ</div>
+        <div class="eyebrow reveal" data-content="slides.engagement.eyebrow">ВОВЛЕЧЕНИЕ</div>
         <div class="two-col">
           <div>
             <h2 class="question-title reveal d1" data-content="slides.engagement.title">Как остановить человека и включить его в действие?</h2>
@@ -1705,7 +1705,7 @@
       </section>
 
       <section class="slide case-slide" data-title="среда">
-        <div class="eyebrow reveal" data-content="slides.space.eyebrow">ФОРМАТ 02 / ПРОСТРАНСТВЕННЫЙ СЦЕНАРИЙ</div>
+        <div class="eyebrow reveal" data-content="slides.space.eyebrow">ПРОСТРАНСТВЕННЫЙ СЦЕНАРИЙ</div>
         <div class="two-col">
           <div>
             <h2 class="question-title reveal d1" data-content="slides.space.title">Как сделать так, чтобы человек сам понял маршрут?</h2>
@@ -1726,7 +1726,7 @@
       </section>
 
       <section class="slide case-slide" data-title="макет">
-        <div class="eyebrow reveal" data-content="slides.pitch.eyebrow">ФОРМАТ 03 / ВИЗУАЛЬНОЕ ПРЕДЛОЖЕНИЕ</div>
+        <div class="eyebrow reveal" data-content="slides.pitch.eyebrow">ВИЗУАЛЬНОЕ ПРЕДЛОЖЕНИЕ</div>
         <div class="two-col">
           <div>
             <h2 class="question-title reveal d1" data-content="slides.pitch.title">Как продать идею до производства?</h2>
@@ -1797,7 +1797,7 @@
     <div class="modal-frame" id="modalFrame"></div>
   </div>
 
-  <script src="assets/js/content.js" charset="utf-8"></script>
+  <script src="assets/js/content.js?v=20260615-typography" charset="utf-8"></script>
   <script>
     function contentValue(path) {
       return path.split('.').reduce((value, part) => {
