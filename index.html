@@ -201,7 +201,7 @@
 
     .cover-title {
       max-width: none;
-      font-size: clamp(44px, 3vw, 56px);
+      font-size: clamp(38px, 2.7vw, 52px);
     }
 
     .nowrap {
@@ -369,7 +369,7 @@
 
     .pain-title {
       max-width: 90vw;
-      font-size: clamp(44px, 3vw, 56px);
+      font-size: clamp(38px, 2.7vw, 52px);
       line-height: 1.08;
     }
 
@@ -404,8 +404,8 @@
       padding-left: clamp(12px, 1.2vw, 22px);
       min-height: 68px;
       color: var(--ink);
-      font-size: clamp(14px, .86vw, 16px);
-      line-height: 1.15;
+      font-size: clamp(15px, 1.25vw, 22px);
+      line-height: 1.2;
       font-weight: 700;
       white-space: nowrap;
       transform-origin: left top;
@@ -428,14 +428,7 @@
     .slide.active .q:nth-child(4) { animation-delay: 10.8s; }
 
     @keyframes linePulse {
-      0%, 8% {
-        border-color: rgba(var(--accent-rgb, 200, 191, 174), .58);
-        color: var(--ink);
-        transform: translateY(0) scale(1);
-        background: rgba(26,28,30,0);
-        box-shadow: inset 0 1px 0 rgba(var(--accent-rgb, 200, 191, 174), 0);
-      }
-      14%, 38% {
+      0%, 18% {
         border-color: var(--accent, var(--soft));
         color: #fffaf0;
         transform: translateY(-2px) scale(1.014);
@@ -444,7 +437,7 @@
           rgba(26,28,30,.74);
         box-shadow: inset 0 1px 0 rgba(var(--accent-rgb, 200, 191, 174), .78), 0 10px 24px rgba(var(--accent-rgb, 200, 191, 174), .08);
       }
-      52%, 100% {
+      25%, 100% {
         border-color: rgba(var(--accent-rgb, 200, 191, 174), .58);
         color: var(--ink);
         transform: translateY(0) scale(1);
@@ -700,7 +693,7 @@
     }
 
     .contact-layout > div:first-child > h2 {
-      font-size: clamp(40px, 3.45vw, 60px);
+      font-size: clamp(38px, 2.7vw, 52px);
       max-width: none;
       white-space: nowrap;
     }
@@ -1103,7 +1096,7 @@
         padding-top: 10px;
         padding-right: 6px;
         padding-left: 8px;
-        font-size: 10px;
+        font-size: 11px;
       }
       .pain-final {
         position: absolute;
@@ -1212,13 +1205,13 @@
       }
       .contact-layout > div:first-child > h2 {
         white-space: nowrap;
-        font-size: clamp(24px, 4.4vw, 34px);
+        font-size: clamp(21px, 2.7vw, 23px);
       }
       .contact-name { margin-top: 22px; }
-      .contact-name h2 { font-size: clamp(22px, 3.7vw, 30px); }
+      .contact-name h2 { font-size: clamp(18px, 2.35vw, 20px); }
       .contact-name p { margin-top: 12px !important; font-size: 12px; }
       .philosophy { margin-top: 24px; }
-      .philosophy h2 { font-size: clamp(18px, 3vw, 24px); }
+      .philosophy h2 { font-size: clamp(15px, 2vw, 18px); }
       .philosophy p { margin-top: 10px; font-size: 11px; }
       .contact-stack { width: min(18vw, 150px); gap: 7px; }
       .contact-stack .portrait { max-width: 150px; }
@@ -1521,13 +1514,13 @@
         gap: 28px;
       }
       .contact-layout > div:first-child > h2 {
-        font-size: clamp(24px, 3.2vw, 27px);
+        font-size: clamp(18px, 2.55vw, 22px);
       }
       .contact-name {
         margin-top: 12px;
       }
       .contact-name h2 {
-        font-size: clamp(20px, 2.8vw, 24px);
+        font-size: clamp(16px, 2.2vw, 19px);
       }
       .contact-name p {
         margin-top: 9px !important;
@@ -1537,7 +1530,7 @@
         margin-top: 12px;
       }
       .philosophy h2 {
-        font-size: clamp(15px, 2.2vw, 18px);
+        font-size: clamp(14px, 1.9vw, 16px);
       }
       .philosophy p {
         margin-top: 8px;
@@ -1627,7 +1620,7 @@
     <div class="slides">
       <section class="slide active" data-title="боль">
         <div class="eyebrow reveal" data-content="slides.pain.eyebrow">ЗАЧЕМ ИНТЕРАКТИВ</div>
-        <h1 class="pain-title reveal d1" data-content="slides.pain.title">Интерактив должен вести к действию пользователя.<br>Что делать, если человек...</h1>
+        <h1 class="pain-title reveal d1" data-content="slides.pain.title">Стенд, музей или бренд-зона должны вести к действию<br>человека. Что делать, если человек...</h1>
         <p class="pain-subtitle reveal d2" data-content="slides.pain.subtitle"></p>
         <div class="pain-grid reveal d3">
           <article class="pain-card" data-content="slides.pain.cards.0">Не останавливается</article>
@@ -1797,7 +1790,7 @@
     <div class="modal-frame" id="modalFrame"></div>
   </div>
 
-  <script src="assets/js/content.js?v=20260615-typography" charset="utf-8"></script>
+  <script src="assets/js/content.js?v=20260615-title2" charset="utf-8"></script>
   <script>
     function contentValue(path) {
       return path.split('.').reduce((value, part) => {
