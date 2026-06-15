@@ -334,7 +334,7 @@
     }
 
     .q {
-      border-top: 1px solid var(--accent, var(--soft));
+      border-top: 1px solid rgba(var(--accent-rgb, 200, 191, 174), .58);
       padding-top: clamp(20px, 1.6vw, 28px);
       padding-right: clamp(10px, 1vw, 18px);
       padding-bottom: clamp(36px, 2.6vw, 48px);
@@ -358,8 +358,8 @@
     .q:nth-child(4),
     .format-card:nth-child(4) { --accent: #c0a87f; --accent-rgb: 192, 168, 127; }
 
-    .q b { color: var(--accent, var(--soft)); font-size: 14px; }
-    .q h3 { margin-top: 24px; font-size: clamp(22px, 1.65vw, 30px); }
+    .q b { display: none; color: var(--accent, var(--soft)); font-size: 14px; }
+    .q h3 { margin-top: clamp(8px, .8vw, 14px); font-size: clamp(22px, 1.65vw, 30px); }
     .q p {
       margin-top: clamp(18px, 1.4vw, 24px);
       font-size: clamp(15px, 1.25vw, 22px);
@@ -398,7 +398,7 @@
     }
 
     .pain-card {
-      border-top: 1px solid var(--accent, var(--soft));
+      border-top: 1px solid rgba(var(--accent-rgb, 200, 191, 174), .58);
       padding-top: clamp(20px, 1.7vw, 30px);
       padding-right: clamp(14px, 1.3vw, 24px);
       padding-bottom: clamp(28px, 2.4vw, 40px);
@@ -1318,7 +1318,7 @@
         gap: 2.4vw;
       }
       .q {
-        border-top: 1px solid var(--accent, var(--soft));
+        border-top: 1px solid rgba(var(--accent-rgb, 200, 191, 174), .58);
         padding-top: 9px;
         padding-right: 5px;
         padding-bottom: 14px;
@@ -1810,7 +1810,7 @@
     <div class="modal-frame" id="modalFrame"></div>
   </div>
 
-  <script src="assets/js/content.js?v=20260615-card-hierarchy" charset="utf-8"></script>
+  <script src="assets/js/content.js?v=20260615-muted-lines" charset="utf-8"></script>
   <script>
     function contentValue(path) {
       return path.split('.').reduce((value, part) => {
