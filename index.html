@@ -306,6 +306,11 @@
       max-width: 760px;
     }
 
+    #task h1 {
+      max-width: none;
+      white-space: nowrap;
+    }
+
     h2 {
       font-size: var(--h2-size);
       max-width: 780px;
@@ -543,8 +548,8 @@
       width: 100%;
       height: 100%;
       min-height: 0;
-      object-fit: contain;
-      object-position: center;
+      object-fit: cover;
+      object-position: center 52%;
       opacity: 1;
       filter: none;
       transform: none;
@@ -1085,6 +1090,10 @@
       h1 { font-size: 3.55rem; }
       h2 { font-size: 2.75rem; }
 
+      #task h1 {
+        white-space: normal;
+      }
+
       .scene-shell,
       .solutions-layout,
       .contact-layout {
@@ -1176,16 +1185,16 @@
       }
 
       .signal-path {
-        gap: 3px;
+        gap: 2px;
       }
 
       .signal-path span {
-        padding: 5px 5px;
-        font-size: 0.72rem;
+        padding: 5px 4px;
+        font-size: 0.68rem;
       }
 
       .signal-path i {
-        font-size: 0.72rem;
+        font-size: 0.68rem;
       }
     }
 
@@ -1378,7 +1387,7 @@
       <div class="scene-shell">
         <div class="copy">
           <div class="eyebrow reveal" data-content="task.eyebrow">Интерактивные продукты</div>
-          <h1 class="reveal" data-content="task.title">Интерактивное решение, которое ведет к действию</h1>
+          <h1 class="reveal" data-content="task.title">Интерактивные решения</h1>
           <div class="place-strip reveal" aria-label="Где это работает">
             <strong data-content="task.placesTitle">Где это работает</strong>
             <div class="place-chips" data-chip-list="task.placesItems">
@@ -1386,10 +1395,10 @@
             </div>
           </div>
           <p class="lead reveal" data-content="task.lead">
-            Превращаю пространство, экран, игру или приложение в опыт, где человек быстро понимает действие, получает отклик и делает следующий шаг.
+            Превращаю пространство, экран, игру или приложение в опыт, где человек быстро понимает действие, получает отклик и хочет вернуться к проекту.
           </p>
           <div class="signal-path reveal" aria-label="Путь проекта" data-flow="task.flow">
-            <span>задача</span><i>→</i><span>идея</span><i>→</i><span>сигнал</span><i>→</i><span>действие</span><i>→</i><span>отклик</span><i>→</i><span>шаг</span>
+            <span>задача</span><i>→</i><span>идея</span><i>→</i><span>сигнал</span><i>→</i><span>действие</span><i>→</i><span>отклик</span><i>→</i><span>возврат</span>
           </div>
           <div class="actions reveal">
             <a class="button primary" href="#contact" data-content="task.primaryCta">Разобрать задачу</a>
@@ -1413,7 +1422,7 @@
         <div class="copy">
           <div class="eyebrow reveal" data-content="author.eyebrow">Автор</div>
           <h2 class="reveal" data-content="author.title">Андрей Клавдиев</h2>
-          <p class="lead reveal" data-content="author.lead">Product Producer / Creative Producer. Инсталляции · Игры · Приложения.</p>
+          <p class="lead reveal" data-content="author.lead" data-html="true">Product Producer / Creative Producer<br>Инсталляции · Игры · Приложения.</p>
           <p class="sublead reveal" data-content="author.sublead">
             Понимаю цели бизнеса и выстраиваю диалог между клиентом, креативом,
             дизайном, разработкой, инженерией и продакшном, чтобы идея не потерялась
@@ -1434,7 +1443,7 @@
           </div>
         </div>
         <div class="media-stage dark">
-          <img class="media-image" src="assets/images/author-match.jpg" alt="Матч с профессионалом в интерактивной спортивной зоне">
+          <img class="media-image" src="assets/images/maket-photo.jpg" alt="Интерактивный архитектурный макет">
           <div class="media-gradient"></div>
           <div class="stage-content">
             <div class="stage-label" data-content="author.stageLabel">Signal 02</div>
