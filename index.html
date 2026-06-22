@@ -68,7 +68,10 @@
         repeating-linear-gradient(118deg, rgba(216, 216, 200, 0.026) 0 1px, transparent 1px 18px),
         var(--bg);
       color: var(--ink);
+      hyphens: none;
       overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
     }
 
     body::before {
@@ -101,6 +104,22 @@
 
     a {
       color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p,
+    li,
+    a,
+    button,
+    span,
+    strong,
+    em,
+    b {
+      hyphens: none;
+      overflow-wrap: normal;
+      word-break: normal;
     }
 
     button,
@@ -304,6 +323,7 @@
       color: var(--soft);
       font-size: var(--lead-size);
       line-height: 1.46;
+      text-wrap: pretty;
     }
 
     .sublead {
@@ -312,6 +332,7 @@
       color: var(--muted);
       font-size: 1rem;
       line-height: 1.55;
+      text-wrap: pretty;
     }
 
     .text-stack {
@@ -322,6 +343,7 @@
       color: var(--muted);
       font-size: 1rem;
       line-height: 1.55;
+      text-wrap: pretty;
     }
 
     .text-stack p {
@@ -407,20 +429,6 @@
       color: var(--soft);
       font-size: 0.86rem;
       line-height: 1.1;
-    }
-
-    .solution-format {
-      max-width: 760px;
-      margin-top: 22px;
-      border-top: 1px solid var(--line);
-      padding-top: 12px;
-      color: var(--muted);
-      font-size: 0.94rem;
-      line-height: 1.42;
-    }
-
-    .solution-format strong {
-      color: var(--ink);
     }
 
     .signal-path {
@@ -553,6 +561,7 @@
       color: var(--soft);
       font-size: 0.98rem;
       line-height: 1.45;
+      text-wrap: pretty;
     }
 
     .panel-list {
@@ -637,6 +646,7 @@
       color: var(--muted);
       font-size: 1rem;
       line-height: 1.48;
+      text-wrap: pretty;
     }
 
     .fact strong {
@@ -739,6 +749,7 @@
       color: var(--muted);
       font-size: 0.94rem;
       line-height: 1.42;
+      text-wrap: pretty;
     }
 
     .service-item em {
@@ -776,20 +787,6 @@
       color: var(--ink);
     }
 
-    .final-phrase {
-      border-top: 1px solid var(--line);
-      margin-top: 18px;
-      padding-top: 14px;
-    }
-
-    .final-phrase strong {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--gold);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-    }
-
     .contact-brief {
       display: grid;
       gap: 18px;
@@ -817,9 +814,9 @@
     .contact-profile {
       position: relative;
       display: grid;
-      grid-template-rows: minmax(280px, 48%) 1fr;
-      height: min(680px, calc(100vh - 128px));
-      min-height: 540px;
+      grid-template-rows: minmax(260px, 54%) auto;
+      height: min(560px, calc(100vh - 150px));
+      min-height: 480px;
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -1173,9 +1170,34 @@
       h1 { font-size: var(--landscape-h1-size); }
       h2 { font-size: var(--landscape-h2-size); }
 
+      #task h1 {
+        font-size: 1.72rem;
+        line-height: 1.03;
+      }
+
+      #task .place-strip {
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      #task .place-chips {
+        gap: 5px;
+      }
+
+      #task .place-chips span {
+        padding: 5px 8px;
+        font-size: 0.76rem;
+      }
+
       .lead {
         margin-top: 14px;
         font-size: 0.98rem;
+      }
+
+      #task .lead {
+        margin-top: 12px;
+        font-size: 0.88rem;
+        line-height: 1.34;
       }
 
       .sublead,
@@ -1218,6 +1240,24 @@
       .contact-profile {
         height: auto;
         min-height: 260px;
+      }
+
+      #task .media-stage {
+        min-height: 220px;
+      }
+
+      #task .stage-content {
+        gap: 8px;
+        padding: 14px;
+      }
+
+      #task .stage-title {
+        font-size: 1.22rem;
+      }
+
+      #task .stage-text {
+        font-size: 0.78rem;
+        line-height: 1.34;
       }
 
       .contact-profile {
@@ -1288,26 +1328,22 @@
             </div>
           </div>
           <p class="lead reveal" data-content="task.lead">
-            Делаю решения, где человек замечает, действует, получает отклик и запоминает опыт.
+            Превращаю пространство, экран, игру или приложение в опыт: человек замечает, действует, получает отклик и запоминает результат.
           </p>
           <div class="signal-path reveal" aria-label="Путь проекта" data-flow="task.flow">
-            <span>задача</span><i>→</i><span>идея</span><i>→</i><span>взгляд</span><i>→</i><span>действие</span><i>→</i><span>итог</span><i>→</i><span>связь</span>
+            <span>задача</span><i>→</i><span>идея</span><i>→</i><span>сигнал</span><i>→</i><span>действие</span><i>→</i><span>итог</span><i>→</i><span>связь</span>
           </div>
           <div class="actions reveal">
             <a class="button primary" href="#contact" data-content="task.primaryCta">Разобрать задачу</a>
             <a class="button" href="#solutions" data-content="task.secondaryCta">Смотреть решения</a>
           </div>
-          <div class="solution-format reveal">
-            <strong data-content="task.formsTitle">Каким может быть решение:</strong>
-            <span data-content="task.formsText">инсталляция, игра, приложение, экран, физический объект, бренд-зона или комплексная phygital-система</span>
-          </div>
         </div>
         <div class="media-stage">
-          <img class="media-image" src="assets/images/match-photo.jpg" alt="Интерактивная спортивная зона с ударом по мячу">
+          <img class="media-image" src="assets/images/signal-attack-hit.jpg" alt="Андрей Клавдиев наносит удар по мячу в интерактивной инсталляции">
           <div class="media-gradient"></div>
           <div class="stage-content">
             <div class="stage-label" data-content="task.stageLabel">Signal 01</div>
-            <div class="stage-title" data-content="task.stageTitle">Первое действие должно считываться за секунды</div>
+            <div class="stage-title" data-content="task.stageTitle">Первое действие считывается за секунды</div>
             <div class="stage-text" data-content="task.stageText">Интерактив работает, когда человеку сразу понятно, что можно сделать и какой отклик он получит.</div>
           </div>
         </div>
@@ -1344,7 +1380,7 @@
           <div class="media-gradient"></div>
           <div class="stage-content">
             <div class="stage-label" data-content="author.stageLabel">Signal 02</div>
-            <div class="stage-title" data-content="author.stageTitle">Роль не в том, чтобы добавить экран</div>
+            <div class="stage-title" data-content="author.stageTitle">Я держу целое</div>
             <div class="stage-text" data-content="author.stageText">Роль в том, чтобы связать пространство, человека, механику, интерфейс, команду и бюджет в одну реалистичную систему.</div>
           </div>
         </div>
@@ -1357,8 +1393,8 @@
           <div class="eyebrow reveal" data-content="solutions.eyebrow">Решения</div>
           <h2 class="reveal" data-content="solutions.title">Что можно собрать</h2>
           <p class="lead reveal" data-content="solutions.lead">
-            Экран, объект, игра, приложение, бренд-зона, спортивная механика,
-            музейный интерфейс или комплексная phygital-система.
+            От экрана и игры до бренд-зоны, спортивной механики,
+            музейного интерфейса и phygital-системы.
           </p>
           <div class="solutions-layout reveal">
             <div>
@@ -1398,8 +1434,8 @@
           <div class="media-gradient"></div>
           <div class="stage-content">
             <div class="stage-label" data-content="solutions.stageLabel">Signal 03</div>
-            <div class="stage-title" data-content="solutions.stageTitle">Кейс должен доказывать поведение</div>
-            <div class="stage-text" data-content="solutions.stageText">Что человек увидел, что сделал, какой отклик получил и что осталось у проекта.</div>
+            <div class="stage-title" data-content="solutions.stageTitle">Кейс показывает поведение</div>
+            <div class="stage-text" data-content="solutions.stageText">Человек увидел действие, сделал шаг и получил отклик. У проекта остались участие, контакт или память.</div>
           </div>
         </div>
       </div>
@@ -1414,7 +1450,7 @@
           <div class="service-grid reveal" data-service-list>
             <div class="service-item"><b>01</b><strong>Разбор идеи и пути</strong><span>Проверяю замысел, поведение человека, слабые места и первый понятный шаг.</span></div>
             <div class="service-item"><b>02</b><strong>Концепт интерактива</strong><span>Идея, механика участия, визуальная логика и отклик системы.</span></div>
-            <div class="service-item"><b>03</b><strong>Полный цикл</strong><span>Вхожу с раннего этапа и веду решение от идеи и сценария до сборки, команды и запуска.</span></div>
+            <div class="service-item"><b>03</b><strong>Полный цикл</strong><span>Захожу на раннем этапе и веду решение от идеи и сценария до команды, сборки и запуска.</span></div>
             <div class="service-item"><b>04</b><strong>ТЗ для команды</strong><span>Материал, который можно обсуждать, оценивать и реализовывать.</span></div>
             <div class="service-item"><b>05</b><strong>Сопровождение</strong><span>Удерживаю смысл, механику и качество опыта до запуска.</span></div>
           </div>
@@ -1437,8 +1473,7 @@
           <div class="eyebrow reveal" data-content="contact.eyebrow">Контакт</div>
           <h2 class="reveal" data-content="contact.title">Связаться со мной</h2>
           <p class="lead reveal" data-content="contact.lead">
-            Самый быстрый путь — написать в Telegram. Коротко опишите,
-            что хотите собрать и где человек должен взаимодействовать.
+            Превращаю идею в понятный сценарий, который можно показать, обсудить, посчитать и реализовать.
           </p>
           <div class="contact-brief reveal">
             <div class="form-intro">
@@ -1460,10 +1495,6 @@
               <a href="https://t.me/Andrey_Klavdiev" target="_blank" rel="noopener" data-telegram-link data-content="contact.telegramText">Telegram: @Andrey_Klavdiev</a>
               <a href="mailto:klavdiev4593@mail.ru" data-content="contact.email">klavdiev4593@mail.ru</a>
               <a href="tel:+79175461807" data-content="contact.phone">+7 917 546 18 07</a>
-            </div>
-            <div class="final-phrase">
-              <strong data-content="contact.finalTitle">Что получится</strong>
-              <p data-content="contact.finalPhrase">Превращаю идею в понятный сценарий, который можно показать, обсудить, посчитать и реализовать.</p>
             </div>
           </div>
         </aside>
@@ -1494,6 +1525,32 @@
         }
         return undefined;
       }, source);
+    }
+
+    function typographText(value) {
+      if (typeof value !== "string") return value;
+      const glueWords = "а|в|во|и|к|ко|о|об|обо|с|со|у|на|но|от|до|по|за|из|над|под|при|без|для|или|как|что|где";
+      const gluePattern = new RegExp(`(^|[\\s(«„"'])(${glueWords})\\s+`, "giu");
+      return value
+        .replace(/\s+([,.;:!?])/g, "$1")
+        .replace(/\s+—\s+/g, "\u00A0— ")
+        .replace(gluePattern, "$1$2\u00A0");
+    }
+
+    function applyTypography(root = document.body) {
+      const ignoredTags = new Set(["SCRIPT", "STYLE", "TEXTAREA", "INPUT"]);
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          if (ignoredTags.has(node.parentElement?.tagName)) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach((node) => {
+        node.nodeValue = typographText(node.nodeValue);
+      });
     }
 
     function applyCssVars() {
@@ -1596,6 +1653,7 @@
     applyConfiguredText();
     syncCases();
     syncContactLinks();
+    applyTypography();
 
     const navLinks = [...document.querySelectorAll(".nav a")];
     const sections = [...document.querySelectorAll("[data-section]")];
@@ -1636,8 +1694,8 @@
       const video = button.dataset.video;
       const image = button.dataset.image;
 
-      modalTitle.textContent = title;
-      modalText.textContent = text;
+      modalTitle.textContent = typographText(title);
+      modalText.textContent = typographText(text);
       modalMedia.innerHTML = video
         ? `<video controls autoplay muted playsinline poster="${image}"><source src="${video}" type="video/mp4"></video>`
         : `<img src="${image}" alt="${title}">`;
