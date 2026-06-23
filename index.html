@@ -268,6 +268,15 @@
       max-width: 820px;
     }
 
+    #task .scene-shell {
+      align-items: start;
+    }
+
+    #task .copy {
+      align-content: start;
+      padding-top: clamp(28px, 5vh, 56px);
+    }
+
     .eyebrow {
       display: flex;
       align-items: center;
@@ -1094,6 +1103,10 @@
         white-space: normal;
       }
 
+      #task .copy {
+        padding-top: 0;
+      }
+
       .scene-shell,
       .solutions-layout,
       .contact-layout {
@@ -1469,9 +1482,7 @@
                 <strong data-content="solutions.collectTitle">Главное</strong>
                 <ul class="bullet-list" data-list="solutions.collectItems"></ul>
               </div>
-              <p class="sublead" data-content="solutions.sublead">
-                Кейсы показывают не картинки, а действие человека и отклик системы.
-              </p>
+              <p class="sublead" data-content="solutions.sublead"></p>
               <div class="signal-path" aria-label="Формула кейса" data-flow="solutions.flow">
                 <span>задача</span><i>→</i><span>решение</span><i>→</i><span>действие</span><i>→</i><span>результат</span>
               </div>
@@ -1497,7 +1508,7 @@
           </div>
         </div>
         <div class="media-stage evidence-media">
-          <img class="media-image" src="assets/images/spatial-route.jpg" alt="Пространственный сценарий с интерактивными объектами">
+          <img class="media-image" src="assets/images/signal-photozone.jpg" alt="Фотозона как часть пространственного сценария">
           <div class="media-gradient"></div>
           <div class="stage-content">
             <div class="stage-label" data-content="solutions.stageLabel">Signal 03</div>
